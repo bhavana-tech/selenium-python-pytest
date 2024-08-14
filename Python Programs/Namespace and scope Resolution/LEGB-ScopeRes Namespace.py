@@ -1,8 +1,4 @@
-def top_most_dada():
-    print("Most outer func")
-    us_global_Big_daddy_law = "US is big daddy,i'am impregnable!"  #Global Variable
-
-
+us_global_Big_daddy_law = "US is big daddy,i'am impregnable!"  #Global Variable
 def EU_Union_outerfunction():  #Outer function
     eu_union = "Laws restricted to EU only!"  #Enclosing Variable
 
@@ -18,6 +14,9 @@ def EU_Union_outerfunction():  #Outer function
         list_inner = ['India', 'Pakistan', 'Srilanka', 'Bangla', 'Myamnar']
         for j in list_inner:
             print(j)
+
     local_rule()
-top_most_dada()
+
 EU_Union_outerfunction()
+
+
