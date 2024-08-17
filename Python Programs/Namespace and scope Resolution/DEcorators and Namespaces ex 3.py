@@ -26,7 +26,7 @@ def city_rule():
 city_rule()
 state_rule()
 
-
+# Now write state_rule() at first and then city_rule last and see the result.
 Step-by-Step Explanation
 Initial Global Variable (base_url):
 
@@ -47,3 +47,4 @@ Visualization:
 Before any function call: base_url = "Universal rule"
 After city_rule() runs: base_url = "www.city.com" (Global value is changed)
 When state_rule() runs: It sees base_url as "www.city.com" because it was modified earlier.
+
