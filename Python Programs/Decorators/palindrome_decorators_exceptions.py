@@ -29,11 +29,9 @@ def decorator_palindrome(func):
     return wrapper
 @decorator_palindrome
 def palindrome(s):
-    print("It is palindrome")
+    return s
 
-for i in range(5):
-    text = str(input("Enter the string"))
-
+for i in range(3):
+    text = input("Enter string")
     result = palindrome(text)
     print(result)
-

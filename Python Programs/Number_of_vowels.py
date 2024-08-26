@@ -1,4 +1,4 @@
-string = "aeiouAEIOU"
+string = "Land is green and sky is blue"
 new_string = string.lower()
 words = new_string.split()
 
