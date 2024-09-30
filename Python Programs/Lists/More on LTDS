@@ -1,0 +1,6 @@
+#To convert list to dictionory 
+
+list1=['apple','bananna','cat','dog']
+print("To get output as 0:apple, 1:banana, 2:cat")
+x={i: list1[i] for i in range(len(list1))}
+print(x)
