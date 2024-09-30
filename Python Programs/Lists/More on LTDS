@@ -4,3 +4,11 @@ list1=['apple','bananna','cat','dog']
 print("To get output as 0:apple, 1:banana, 2:cat")
 x={i: list1[i] for i in range(len(list1))}
 print(x)
+
+
+
+Print("-----Pairing Consecutive Elements--------")
+list1=['Name','Bhavana','age',33,'Gender','Female']
+print("Convert the above to {'Name': 'Bhavana', 'age': 33, 'Gender': 'Female'} ")
+to_dict={list1[i]:list1[i+1] for i in range (0,len(list1),2)} 
+print(to_dict)
