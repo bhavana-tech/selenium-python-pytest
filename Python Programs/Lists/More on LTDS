@@ -12,3 +12,10 @@ list1=['Name','Bhavana','age',33,'Gender','Female']
 print("Convert the above to {'Name': 'Bhavana', 'age': 33, 'Gender': 'Female'} ")
 to_dict={list1[i]:list1[i+1] for i in range (0,len(list1),2)} 
 print(to_dict)
+
+
+print("---------Convert a list to set-----------")
+my_list = ['apple', 'banana', 'cherry', 'apple']
+my_set = set(my_list)
+print(my_set)
+
