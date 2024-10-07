@@ -1,5 +1,6 @@
 What Are Decorators in Python?
-Decorators are a powerful feature in Python that allow you to modify or enhance the behavior of functions or methods without changing their actual code. Think of decorators as wrappers that add extra functionality to your existing functions.
+Decorators are a powerful feature in Python that allow you to modify or enhance the behavior of functions or methods without changing their actual code. Think of decorators as wrappers that add extra functionality 
+to your existing functions.
 
 Simple Definition
 A decorator is a function that takes another function as input, adds some functionality to it, and returns the new function. This allows you to "decorate" or "wrap" your original function with additional features.
@@ -8,3 +9,8 @@ Why Use Decorators?
 Reusability: You can apply the same decorator to multiple functions.
 Separation of Concerns: Keep your core logic separate from auxiliary features like logging, timing, or access control.
 Clean Code: Makes your code cleaner and more readable by abstracting repetitive tasks.
+
+
+Have you used decorators in automation framework?
+Yes, i have implemented a decorator called "@retry_on_failure" which automatically retiries executing test case specified number of times if it fails due to some issues. We encounter issues while executing due to which
+sometimes the testcases are marked as failures sometimes. So instead of failing immediately, we can try few more times befor decidiing it is truly broken. 
