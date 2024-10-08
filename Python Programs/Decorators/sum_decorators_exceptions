@@ -1,1 +1,49 @@
+class NotAListError(Exception):
+    pass
+
+class NotANumberError(Exception):
+    pass
+
+class EmptyListError(Exception):
+    pass
+
+
+def sum_decorator(func):
+    def wrapper(numbers):
+        try:
+            if not isinstance(numbers, list):
+                raise NotAListError("Input should be a list of numbers.")
+            
+            if len(numbers) == 0:
+                raise EmptyListError("The list is empty.")
+            
+            # Check if all elements in the list are numbers
+            for num in numbers:
+                if not isinstance(num, (int, float)):
+                    raise NotANumberError(f"'{num}' is not a valid number.")
+            
+            return func(numbers)
+        
+        except (NotAListError, NotANumberError, EmptyListError) as e:
+            print(e)
+        
+        # finally:
+        #     print("Sum operation completed.")
+            
+    return wrapper
+        
+@sum_decorator
+def sum_numbers(numbers):
+    return sum(numbers)
+    
+for i in range(3):
+    try:
+        # Taking input from the user as a space-separated string, then converting it to a list of numbers
+        text = input("Enter numbers separated by spaces: ")
+        number_list = [float(num) for num in text.split()]  # Convert input to a list of floats
+        result = sum_numbers(number_list)
+        if result is not None:
+            print(f"Sum: {result}")
+    except ValueError:
+        print("Invalid input. Please enter valid numbers.")
 
