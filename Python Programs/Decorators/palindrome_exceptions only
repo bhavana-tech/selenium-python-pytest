@@ -9,10 +9,10 @@ def palindrome(s):
     try:
         
         if not isinstance(s,str):
-            raise NotAStringError
+            raise NotAStringError("Enter text as string")
             
             if s == "":
-                raise EmptyStringError
+                raise EmptyStringError("String is empty")
         
         
         if s == s[::-1]:
