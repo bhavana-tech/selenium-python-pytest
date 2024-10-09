@@ -25,21 +25,4 @@ print(total3)
 
 ---------------------------------------------------------------
 
-def sum_of_numbers(numbers):
-    try:
 
-        numeric_numbers=[int(num) for num in numbers]
-        
-        return f'The sume is {sum(numeric_numbers)}'
-            
-    except ValueError as e:
-        return f"An error occured{str(e)}"
-
-    finally:
-        print("sum is done")
-#f is a format string
-for i in range(5):
-    input_string=input("Enter the numbers")
-    data = input_string.strip().split()
-    result = sum_of_numbers(data)
-    print(result)
