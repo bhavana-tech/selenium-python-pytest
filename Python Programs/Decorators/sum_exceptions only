@@ -16,3 +16,46 @@ for i in range(5):
     data = input_string.strip().split()
     result = sum_of_numbers(data)
     print(result)
+-----------------------------------------------------------------------------------
+class NoValueError(Exception):
+    pass
+
+class NotANumberError(Exception):
+    pass
+
+class NotAListError(Exception):
+    pass
+
+def sum_of_numbers(numbers):
+    
+    try:
+        
+        if len(numbers) ==0:
+            raise NoValueError("No Values provided")
+            
+        if not isinstance(numbers,list):
+            raise NotAListError("Please enter list of numbers")
+            
+        for num in numbers:
+            if not isinstance(num,(int,float)):
+                raise NotANumberError("Please enter numerical numbers")
+            
+        return sum(numbers)
+        
+    except (NotANumberError,NoValueError,NotAListError) as e:
+        print(e)
+
+for i in range(5):
+    input_string=input("Enter numericals data")
+    data_string=input_string.strip().split()
+    
+    numeric_data=[]
+    for x in data_string:
+        try:
+            numeric_data.append(int(x))
+        except ValueError as e:
+            print(f"Invalid input, {x} is invalid, so skipped")
+            
+    total=sum_of_numbers(numeric_data)
+    print("Total is",total)
+
