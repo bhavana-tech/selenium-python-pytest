@@ -1,0 +1,32 @@
+class NotAStringError(Exception):
+    pass
+
+class EmptyStringError(Exception):
+    pass
+
+
+def palindrome(s):
+    try:
+        
+        if not isinstance(s,str):
+            raise NotAStringError("Enter text as string")
+            
+            if s == "":
+                raise EmptyStringError("String is empty")
+        
+        
+        if s == s[::-1]:
+            return f'"{s} is palindrome"'
+        else:
+            return f'"{s} is not palindrome"'
+            
+    except (NotAStringError,EmptyStringError) as e:
+        print(e)
+        
+
+for i in range(3):
+    text=input("Enter text")
+    result=palindrome(text)
+    print(result)
+    
+    
