@@ -39,3 +39,41 @@ def order_pizza(size, count, *toppings, **customization):
 
 
 order_pizza("Medium", 1, "olive", "cheese", "sause", "capsicum", "customization_1", "Custom_2")
+
+
+
+
+
+
+print("-----------PIZZA with only size-----------")
+
+# def pizza(size):
+#     print(f"Ordered a pizza of size {size}")
+#
+# pizza("Large")
+
+print("----------pizza with multiple toppings as positional arguments---------")
+
+
+# def pizza(size, *toppings):
+#     print(f"Ordered pizza of size {size} with toppings ")
+#
+#     for i in toppings:
+#         print(f" - {i}")
+#
+#
+# pizza("Large", "olive", "pepper", "corn")
+
+print("----------pizza with multiple toppings as positional arguments and keyword arguments---------")
+print("Here toppings are stored as list and details are stored as dictonaries")
+
+def pizza(size, *toppings, **details):
+    print(f"Ordered pizza of size {size} with toppings ")
+
+    for i in toppings:
+        print(f" - {i}")
+
+    print("Below are the details")
+    for key, value in details.items():
+        print(f"{key}:{value}")
+pizza("Large", "olive", "pepper", "corn", delivery=75,tips=20,SGST=90,CGSR=90)
