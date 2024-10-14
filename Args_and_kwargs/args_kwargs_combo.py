@@ -56,8 +56,6 @@ some_breakfast("pongal")
 some_breakfast("roti")
 
 
-  
-print("---------------------------------------------------------------------")
 print("-------Incoporating *args and **kwargs to the above program")
 
 

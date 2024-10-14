@@ -1,0 +1,15 @@
+sentence="Check if string starts with vowel and end with vowel"
+
+words=sentence.lower().split()
+print(words)
+vowels="aeiou"
+
+for word in words:
+    #for char in word:
+        if word[0] in vowels and word[-1] in vowels:
+            print(f"Words that begin with vowel are: {word}")
+        
+
+
+    
+    
