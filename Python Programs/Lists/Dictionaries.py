@@ -41,6 +41,14 @@ dict.update({'b':4})
 print(dict) output is a:1, b:4, c:3
 
 dict.pop('a') # This will pop the key
+
+dict.items() Output is it wil lreturn the dict as tuples
+
+dict.claer() It will clear out all teh dictonaries
+
+dict.setdefault('d':4)
+print(dict) #It will set the default value of d to 4  
+
 dict.popitem() # This will pop the last item
 
 
