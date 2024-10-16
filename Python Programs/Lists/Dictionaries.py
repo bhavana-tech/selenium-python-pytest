@@ -28,7 +28,21 @@ def some_method():
     }
 
 print("5. What methods are used to manipulate dictionares in pyhon")
-# .get(), .keys(), .values(), .update(), .pop(), .items()
+# .get(), .keys(), .values(), .update(), .pop(), .items(), popitem()
+like
+dict={'a':1,'b':2,'c':3}
+dict.get('a') Output is 1
+
+dict.keys() Output is a,b,c, ie it will return all the keys
+
+dict.values() output is 
+
+dict.update({'b':4})
+print(dict) output is a:1, b:4, c:3
+
+dict.pop('a') # This will pop the key
+dict.popitem() # This will pop the last item
+
 
 
 
