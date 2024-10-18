@@ -30,6 +30,7 @@ elements_to_remove = {3, 5, 7}  # Use a set for faster membership checking
 filtered_list = [x for x in original_list if x not in elements_to_remove]
 print(filtered_list)  # Output: [1, 2, 4, 6]
 
+
 -----------------------------------------------------------------------------------------
 5. To remove itesm in list using lambda method
 
@@ -42,4 +43,10 @@ print(filter_list) ---leads to <filter object at 0x7c8c3b2a1ab0>, so convert the
 print(list(filter_list))----- prints [8324], to remove [], add *
 
 print(*list(filter_list))
+
+#Suppose there is a string in list, in lambda method we should add another condition that >= condition applies ony to integer and not to string.
+
+original_list=[3,42,455,56,23,'test']
+filtered_list=filter(lambda x: isinstance(x,int) and x >= 10,original_list)
+print(list(filtered_list))
 
