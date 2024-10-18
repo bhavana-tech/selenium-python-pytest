@@ -1,4 +1,4 @@
-#We can remove multiple elements from the list using for loop and comprehenive methods
+#We can remove multiple elements from the list using for loop,comprehenive methods and lambda method
 
 #Normal single removal of items in the list can be done by using "del" or "remove"
 
@@ -30,3 +30,5 @@ elements_to_remove = {3, 5, 7}  # Use a set for faster membership checking
 filtered_list = [x for x in original_list if x not in elements_to_remove]
 print(filtered_list)  # Output: [1, 2, 4, 6]
 
+-----------------------------------------------------------------------------------------
+5. To remove itesm in list using lambda method
