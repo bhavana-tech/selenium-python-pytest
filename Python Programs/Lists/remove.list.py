@@ -32,3 +32,14 @@ print(filtered_list)  # Output: [1, 2, 4, 6]
 
 -----------------------------------------------------------------------------------------
 5. To remove itesm in list using lambda method
+
+list1=[2,4,5,87,8324,3]
+
+filter_list=filter(lambda x:x >1000, list1)
+
+print(filter_list) ---leads to <filter object at 0x7c8c3b2a1ab0>, so convert the filtered list to list
+
+print(list(filter_list))----- prints [8324], to remove [], add *
+
+print(*list(filter_list))
+
