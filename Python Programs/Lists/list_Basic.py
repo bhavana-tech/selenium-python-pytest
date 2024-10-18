@@ -3,7 +3,8 @@ print("Code for list is --Append, Extend, [Insert!Replacing], Remove, Delete")
 list1=[1,2,3,4,5,6,7,8,'abc','def']
 print("Original list                                                  ",list1)
 
-#This is appending ie addign as a single element at the end
+#This is appending ie adding as a single element at the end, ie if you pass a single list to append( the entire list will be added as a single element. (APPU)
+# ratehr than addign each individual element. 
 list1.append(['append1','append2'])
 print("AFTER APPENDING ie adding multiple elements as a single element",list1)
 
