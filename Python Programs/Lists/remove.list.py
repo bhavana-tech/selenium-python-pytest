@@ -50,3 +50,4 @@ original_list=[3,42,455,56,23,'test']
 filtered_list=filter(lambda x: isinstance(x,int) and x >= 10,original_list)
 print(list(filtered_list))
 
+
