@@ -1,1 +1,24 @@
+# A store sells apples at $5 each and bananas at $3 each. Declare variables apples_price and bananas_price with appropriate values. 
+Calculate the total cost for purchasing 10 apples and 7 bananas and store the result in total_cost. 
 
+USE PYTEST FRAMEWORK
+
+This is calculate_py
+apple_price=5
+banana_price=3
+
+def calculate_total_cost(apple_count,banana_count):
+    return (apple_price*apple_count + banana_price*banana_count)
+    
+    
+#Create one more file called test using pytest
+import pytest
+
+def test_calculate_total_cost():
+    
+    assert calculate_total_cost(1,1) == 8
+    
+
+The function to calcualte the total cost is in seperate file. The test cases are written in seperate file. We use pytest because pytest framework allows to add as many test cases in future. 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
