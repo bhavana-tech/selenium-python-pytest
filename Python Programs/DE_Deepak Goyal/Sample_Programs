@@ -22,3 +22,17 @@ def test_calculate_total_cost():
 The function to calcualte the total cost is in seperate file. The test cases are written in seperate file. We use pytest because pytest framework allows to add as many test cases in future. 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+method 2:
+
+apple_price=int(input("Enter the apple price"))
+apple_count=int(input("Enter the apple count"))
+banana_price=int(input("Enter the banana price"))
+banana_count=int(input("Enter the banana count"))
+
+def total_cost(apple_count,banana_count):
+    return apple_price*apple_count+banana_price*banana_count
+    
+print("Total cost is-->",apple_price*apple_count+banana_price*banana_count)
+
+----------------------------------------------------------------------------------------------------------------------
+
