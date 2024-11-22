@@ -101,5 +101,24 @@ print("The total cost is", apple_price*apple_count +banana_price*banana_count)
 
 
 
+Don’t worry! Let me break it down step by step in the simplest way:
+
+Why does *args work differently?
+*args collects all positional arguments as a tuple. So when you pass total_cost(2, 3), Python automatically puts 2 and 3 into a tuple like this: (2, 3).
+
+Then, you can pass these values directly to your function using func(*args), and it will "unpack" the tuple into the correct positions for apple_count and banana_count.
+
+Why do we use .get() for **kwargs?
+**kwargs collects all keyword arguments as a dictionary. So when you pass total_cost(apple_count=2, banana_count=3), Python creates a dictionary like this: {'apple_count': 2, 'banana_count': 3}.
+
+To get values from a dictionary, you need to look them up using keys like kwargs['apple_count'].
+
+But if a key doesn't exist, Python will throw an error.
+To avoid this, we use kwargs.get("key", default_value) which:
+Finds the value of the key (e.g., kwargs.get("apple_count") gives 2).
+Returns a default value (like 0) if the key is missing.
+So, for **kwargs, you use .get() to safely extract the values you need.
+
+
 
 
