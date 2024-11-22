@@ -48,7 +48,7 @@ def deco(func):
     return wrapper
     
 @deco
-def total_cost(apple_count,banana_count):
+def total_cost(apple_count,banana_count): //YOU CAN ALSO USE def total_cost(*args, **kwargs)
     return apple_price*apple_count +banana_price*banana_count
     
 total_cost(apple_count,banana_count)
