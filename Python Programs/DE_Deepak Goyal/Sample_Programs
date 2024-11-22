@@ -35,4 +35,49 @@ def total_cost(apple_count,banana_count):
 print("Total cost is-->",apple_price*apple_count+banana_price*banana_count)
 
 ----------------------------------------------------------------------------------------------------------------------
+method 3: using decorators and *argrs and **kwargs
+apple_price=int(input("Enter apple price"))
+banana_price=int(input("Enter banana price"))
+apple_count=int(input("Enter apple count"))
+banana_count=int(input("Enter banana count"))
+
+def deco(func):
+    def wrapper(*args,**kwargs):
+        return func(*args,**kwargs)
+        print("Before wrapper")
+    return wrapper
+    
+@deco
+def total_cost(apple_count,banana_count):
+    return apple_price*apple_count +banana_price*banana_count
+    
+total_cost(apple_count,banana_count)
+
+print("The total cost is", total_cost(apple_count,banana_count))
+--------------------------------------------------------------------------------------------------------------
+method 4: using only *args ie only positional argument
+
+apple_price=int(input("Enter apple price"))
+banana_price=int(input("Enter banana price"))
+apple_count=int(input("Enter apple count"))
+banana_count=int(input("Enter banana count"))
+
+def deco(func):
+    def wrapper(*args):
+        return func(*args)
+        print("Before wrapper")
+    return wrapper
+    
+@deco
+def total_cost(apple_count,banana_count):
+    return apple_price*apple_count +banana_price*banana_count
+    
+total_cost(apple_count,banana_count)
+
+print("The total cost is", total_cost(apple_count,banana_count))
+---------------------------------------------------------------------------------------------------------
+method 5: using only **kargs ie only keyword arguments
+
+
+
 
