@@ -76,7 +76,29 @@ total_cost(apple_count,banana_count)
 
 print("The total cost is", total_cost(apple_count,banana_count))
 ---------------------------------------------------------------------------------------------------------
-method 5: using only **kargs ie only keyword arguments
+method 5: using only **kwargs ie only keyword arguments
+
+
+apple_price=int(input("Enter apple price"))
+banana_price=int(input("Enter banana price"))
+apple_count=int(input("Enter apple count"))
+banana_count=int(input("Enter banana count"))
+
+def deco(func):
+    def wrapper(**kwargs):
+        return func(**kwargs)
+        print("Before wrapper")
+    return wrapper
+    
+@deco
+def total_cost(**kwargs):
+    apple_count=kwargs.get("apple_count",0)
+    banana_count=kwargs.get("banana_count",0)
+    return apple_price*apple_count +banana_price*banana_count
+
+
+print("The total cost is", apple_price*apple_count +banana_price*banana_count)
+
 
 
 
