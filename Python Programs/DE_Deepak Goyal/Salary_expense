@@ -1,1 +1,96 @@
+You have a monthly salary of $4,000 and expenses that include rent ($1,200), groceries ($300), and miscellaneous ($500). Calculate the amount left after expenses and store it in a variable named remaining_balance.
 
+Method1:  Using a for loop
+salary = 4000
+expenses = [1200, 300, 500]
+
+remaining_balance = salary
+for expense in expenses:
+    remaining_balance -= expense
+
+print("Remaining balance using for loop:", remaining_balance)
+
+------------------------------------
+Method 2: Using decorators without *args and **kwargs
+
+# Using decorators with no *args or **kwargs
+def calculate_decorator_simple(func):
+    def wrapper(salary, expenses):
+        try:
+            return func(salary, expenses)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return wrapper
+
+@calculate_decorator_simple
+def calculate_remaining_balance_simple(salary, expenses):
+    return salary - sum(expenses)
+
+remaining_balance = calculate_remaining_balance_simple(4000, [1200, 300, 500])
+print("Remaining balance with no *args/**kwargs decorator:", remaining_balance)
+
+------------------------------
+Method 3:   Using a decorator with both *args and **kwargs
+
+# Using decorators with *args and **kwargs
+def calculate_decorator_all(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return wrapper
+
+@calculate_decorator_all
+def calculate_remaining_balance_all(salary, *expenses, **details):
+    total_expenses = sum(expenses) + sum(details.values())
+    return salary - total_expenses
+
+remaining_balance = calculate_remaining_balance_all(4000, 300, rent=1200, miscellaneous=500)
+print("Remaining balance using *args and **kwargs decorator:", remaining_balance)
+
+
+------------------------------------------------------------
+Method 4: Using a decorator with **kwargs
+
+# Using decorators with **kwargs
+def calculate_decorator_kwargs(func):
+    def wrapper(**kwargs):
+        try:
+            return func(**kwargs)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return wrapper
+
+@calculate_decorator_kwargs
+def calculate_remaining_balance_kwargs(salary, **expenses):
+    total_expenses = sum(expenses.values())
+    return salary - total_expenses
+
+remaining_balance = calculate_remaining_balance_kwargs(salary=4000, rent=1200, groceries=300, miscellaneous=500)
+print("Remaining balance using **kwargs decorator:", remaining_balance)
+
+
+-------------------------------------------------
+Method 5: Using a decorator with *args
+
+
+# Using decorators with *args
+def calculate_decorator(func):
+    def wrapper(*args):
+        try:
+            return func(*args)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return wrapper
+
+@calculate_decorator
+def calculate_remaining_balance(salary, *expenses):
+    return salary - sum(expenses)
+
+remaining_balance = calculate_remaining_balance(4000, 1200, 300, 500)
+print("Remaining balance using *args decorator:", remaining_balance)
