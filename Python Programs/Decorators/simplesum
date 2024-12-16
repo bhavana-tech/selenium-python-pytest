@@ -25,4 +25,16 @@ print(total3)
 
 ---------------------------------------------------------------
 
-
+def sum1(*args):
+    total=0
+    for i in args:
+        
+        total+=i
+    return total
+    
+number_input=input("enter the numbers")
+numbers= map(int,number_input.split(","))
+total_num=sum1(*numbers)
+print(int(total_num))
+    
+    
