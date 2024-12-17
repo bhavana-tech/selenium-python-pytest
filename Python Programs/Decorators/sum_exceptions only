@@ -47,15 +47,15 @@ def sum_of_numbers(numbers):
 
 for i in range(5):
     input_string=input("Enter numericals data")
-    data_string=input_string.strip().split()
+    data_input=input_string.strip().split()
     
-    numeric_data=[]
-    for x in data_string:
+    list1=[]
+    for x in data_input:
         try:
-            numeric_data.append(int(x))
+            data_input.append(int(x))
         except ValueError as e:
             print(f"Invalid input, {x} is invalid, so skipped")
             
-    total=sum_of_numbers(numeric_data)
+    total=sum_of_numbers(data_input)
     print("Total is",total)
 
