@@ -11,6 +11,23 @@ for expense in expenses:
 print("Remaining balance using for loop:", remaining_balance)
 
 ------------------------------------
+
+Method 1A - using function:
+
+def calculate_balance(salary, expense):
+    balance = salary
+    for i in expense:
+        balance -= i
+    return balance
+
+salary = 9000
+expense = [900, 900]
+
+balance = calculate_balance(salary, expense)
+print(int(balance))
+
+
+------------------------------------------------------------------------
 Method 2: Using decorators without *args and **kwargs
 
 # Using decorators with no *args or **kwargs
