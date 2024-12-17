@@ -68,6 +68,29 @@ def calculate_remaining_balance_all(salary, *expenses, **details):
 remaining_balance = calculate_remaining_balance_all(4000, 300, rent=1200, miscellaneous=500)
 print("Remaining balance using *args and **kwargs decorator:", remaining_balance)
 
+OR
+
+def decorator_sum(func):
+    def wrapper(*args, **kwargs):
+        # Extract salary and expenses logic here
+        salary = args[0]  # First positional argument is salary
+        expenses = args[1]  # Second positional argument is a list of expenses
+        
+        # Calculate total expense
+        total_expense = sum(expenses)
+        
+        # Pass processed arguments to the original function
+        return func(salary, total_expense)
+    return wrapper
+
+@decorator_sum
+def some_func(salary, total_expense):
+    return salary - total_expense  # Subtract total expenses from salary
+
+# Pass salary and expenses
+remaining_bal = some_func(10000, [500, 500])
+print("Remaining Balance:", remaining_bal)
+
 
 ------------------------------------------------------------
 Method 4: Using a decorator with **kwargs
@@ -90,6 +113,28 @@ def calculate_remaining_balance_kwargs(salary, **expenses):
 remaining_balance = calculate_remaining_balance_kwargs(salary=4000, rent=1200, groceries=300, miscellaneous=500)
 print("Remaining balance using **kwargs decorator:", remaining_balance)
 
+OR
+
+def decorator_sum(func):
+    def wrapper(**kwargs):
+        # Extract salary and expenses from keyword arguments
+        salary = kwargs.get("salary", 0)  # Default salary to 0 if not provided
+        expenses = kwargs.get("expenses", [])  # Default expenses to an empty list
+        
+        # Calculate total expense
+        total_expense = sum(expenses)
+        
+        # Pass processed arguments to the original function
+        return func(salary=salary, total_expense=total_expense)
+    return wrapper
+
+@decorator_sum
+def some_func(salary, total_expense):
+    return salary - total_expense  # Subtract total expenses from salary
+
+# Pass salary and expenses as keyword arguments
+remaining_bal = some_func(salary=10000, expenses=[500, 500])
+print("Remaining Balance (using kwargs):", remaining_bal)
 
 -------------------------------------------------
 Method 5: Using a decorator with *args
@@ -111,3 +156,27 @@ def calculate_remaining_balance(salary, *expenses):
 
 remaining_balance = calculate_remaining_balance(4000, 1200, 300, 500)
 print("Remaining balance using *args decorator:", remaining_balance)
+
+OR
+
+def decorator_sum(func):
+    def wrapper(*args):
+        # Extract salary and expenses based on position
+        salary = args[0]  # First argument is salary
+        expenses = args[1]  # Second argument is a list of expenses
+        
+        # Calculate total expense
+        total_expense = sum(expenses)
+        
+        # Pass processed arguments to the original function
+        return func(salary, total_expense)
+    return wrapper
+
+@decorator_sum
+def some_func(salary, total_expense):
+    return salary - total_expense  # Subtract total expenses from salary
+
+# Pass salary and expenses as positional arguments
+remaining_bal = some_func(10000, [500, 500])
+print("Remaining Balance (using args):", remaining_bal)
+
