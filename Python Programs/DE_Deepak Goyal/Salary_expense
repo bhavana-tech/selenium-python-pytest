@@ -102,153 +102,209 @@ except:
 ------------------------------------------------------------------------------------------------------
 Method 2: Using decorators without *args and **kwargs
 
-# Using decorators with no *args or **kwargs
-def calculate_decorator_simple(func):
+class NoValueError(Exception):
+    pass
+
+class NotAStringError(Exception):
+    pass
+
+class EmptyStringError(Exception):
+    pass
+
+def validate_inputs(func):
     def wrapper(salary, expenses):
         try:
+            if not isinstance(salary, (int, float)):
+                raise NotAStringError("Please enter salary in numericals or float.")
+            
+            if salary <= 0:
+                raise EmptyStringError("Salary cannot be zero.")
+            
+            if not expenses:
+                raise NoValueError("Expenses cannot be empty.")
+            
+            if any(expense > salary for expense in expenses):
+                raise ValueError("An individual expense cannot be greater than the salary.")
+            
             return func(salary, expenses)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(e)
             return None
+        finally:
+            print("Balance calculation is done.")
     return wrapper
 
-@calculate_decorator_simple
-def calculate_remaining_balance_simple(salary, expenses):
-    return salary - sum(expenses)
+@validate_inputs
+def some_func(salary, expenses):
+    balance = salary
+    for expense in expenses:
+        balance -= expense
+    return balance
 
-remaining_balance = calculate_remaining_balance_simple(4000, [1200, 300, 500])
-print("Remaining balance with no *args/**kwargs decorator:", remaining_balance)
+# Execution
+for _ in range(3):
+    try:
+        salary_input = int(input("Enter salary: "))
+        expenses_input = input("Enter expenses (comma-separated): ")
+        expenses = list(map(int, expenses_input.split(",")))
+        total = some_func(salary_input, expenses)
+        if total is not None:
+            print(f"Remaining balance: {total}")
+            break
+    except ValueError:
+        print("Invalid input. Please enter valid numerical values.")
+
 
 ------------------------------
 Method 3:   Using a decorator with both *args and **kwargs
 
-# Using decorators with *args and **kwargs
-def calculate_decorator_all(func):
+def validate_inputs(func):
     def wrapper(*args, **kwargs):
         try:
+            salary = kwargs.get("salary") if "salary" in kwargs else args[0]
+            expenses = kwargs.get("expenses") if "expenses" in kwargs else args[1]
+            
+            if not isinstance(salary, (int, float)):
+                raise NotAStringError("Please enter salary in numericals or float.")
+            
+            if salary <= 0:
+                raise EmptyStringError("Salary cannot be zero.")
+            
+            if not expenses:
+                raise NoValueError("Expenses cannot be empty.")
+            
+            if any(expense > salary for expense in expenses):
+                raise ValueError("An individual expense cannot be greater than the salary.")
+            
             return func(*args, **kwargs)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(e)
             return None
+        finally:
+            print("Balance calculation is done.")
     return wrapper
 
-@calculate_decorator_all
-def calculate_remaining_balance_all(salary, *expenses, **details):
-    total_expenses = sum(expenses) + sum(details.values())
-    return salary - total_expenses
+@validate_inputs
+def some_func(salary, expenses):
+    balance = salary
+    for expense in expenses:
+        balance -= expense
+    return balance
 
-remaining_balance = calculate_remaining_balance_all(4000, 300, rent=1200, miscellaneous=500)
-print("Remaining balance using *args and **kwargs decorator:", remaining_balance)
-
-OR
-
-def decorator_sum(func):
-    def wrapper(*args, **kwargs):
-        # Extract salary and expenses logic here
-        salary = args[0]  # First positional argument is salary
-        expenses = args[1]  # Second positional argument is a list of expenses
-        
-        # Calculate total expense
-        total_expense = sum(expenses)
-        
-        # Pass processed arguments to the original function
-        return func(salary, total_expense)
-    return wrapper
-
-@decorator_sum
-def some_func(salary, total_expense):
-    return salary - total_expense  # Subtract total expenses from salary
-
-# Pass salary and expenses
-remaining_bal = some_func(10000, [500, 500])
-print("Remaining Balance:", remaining_bal)
+# Execution
+for _ in range(3):
+    try:
+        salary_input = int(input("Enter salary: "))
+        expenses_input = input("Enter expenses (comma-separated): ")
+        expenses = list(map(int, expenses_input.split(",")))
+        total = some_func(salary=salary_input, expenses=expenses)
+        if total is not None:
+            print(f"Remaining balance: {total}")
+            break
+    except ValueError:
+        print("Invalid input. Please enter valid numerical values.")
 
 
 ------------------------------------------------------------
 Method 4: Using a decorator with **kwargs
 
-# Using decorators with **kwargs
-def calculate_decorator_kwargs(func):
+def validate_inputs(func):
     def wrapper(**kwargs):
         try:
+            salary = kwargs.get("salary")
+            expenses = kwargs.get("expenses")
+            
+            if not isinstance(salary, (int, float)):
+                raise NotAStringError("Please enter salary in numericals or float.")
+            
+            if salary <= 0:
+                raise EmptyStringError("Salary cannot be zero.")
+            
+            if not expenses:
+                raise NoValueError("Expenses cannot be empty.")
+            
+            if any(expense > salary for expense in expenses):
+                raise ValueError("An individual expense cannot be greater than the salary.")
+            
             return func(**kwargs)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(e)
             return None
+        finally:
+            print("Balance calculation is done.")
     return wrapper
 
-@calculate_decorator_kwargs
-def calculate_remaining_balance_kwargs(salary, **expenses):
-    total_expenses = sum(expenses.values())
-    return salary - total_expenses
+@validate_inputs
+def some_func(salary=None, expenses=None):
+    balance = salary
+    for expense in expenses:
+        balance -= expense
+    return balance
 
-remaining_balance = calculate_remaining_balance_kwargs(salary=4000, rent=1200, groceries=300, miscellaneous=500)
-print("Remaining balance using **kwargs decorator:", remaining_balance)
+# Execution
+for _ in range(3):
+    try:
+        salary_input = int(input("Enter salary: "))
+        expenses_input = input("Enter expenses (comma-separated): ")
+        expenses = list(map(int, expenses_input.split(",")))
+        total = some_func(salary=salary_input, expenses=expenses)
+        if total is not None:
+            print(f"Remaining balance: {total}")
+            break
+    except ValueError:
+        print("Invalid input. Please enter valid numerical values.")
 
-OR
-
-def decorator_sum(func):
-    def wrapper(**kwargs):
-        # Extract salary and expenses from keyword arguments
-        salary = kwargs.get("salary", 0)  # Default salary to 0 if not provided
-        expenses = kwargs.get("expenses", [])  # Default expenses to an empty list
-        
-        # Calculate total expense
-        total_expense = sum(expenses)
-        
-        # Pass processed arguments to the original function
-        return func(salary=salary, total_expense=total_expense)
-    return wrapper
-
-@decorator_sum
-def some_func(salary, total_expense):
-    return salary - total_expense  # Subtract total expenses from salary
-
-# Pass salary and expenses as keyword arguments
-remaining_bal = some_func(salary=10000, expenses=[500, 500])
-print("Remaining Balance (using kwargs):", remaining_bal)
 
 -------------------------------------------------
 Method 5: Using a decorator with *args
 
 
-# Using decorators with *args
-def calculate_decorator(func):
+def validate_inputs(func):
     def wrapper(*args):
         try:
+            salary = args[0]
+            expenses = args[1]
+            
+            if not isinstance(salary, (int, float)):
+                raise NotAStringError("Please enter salary in numericals or float.")
+            
+            if salary <= 0:
+                raise EmptyStringError("Salary cannot be zero.")
+            
+            if not expenses:
+                raise NoValueError("Expenses cannot be empty.")
+            
+            if any(expense > salary for expense in expenses):
+                raise ValueError("An individual expense cannot be greater than the salary.")
+            
             return func(*args)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(e)
             return None
+        finally:
+            print("Balance calculation is done.")
     return wrapper
 
-@calculate_decorator
-def calculate_remaining_balance(salary, *expenses):
-    return salary - sum(expenses)
+@validate_inputs
+def some_func(salary, expenses):
+    balance = salary
+    for expense in expenses:
+        balance -= expense
+    return balance
 
-remaining_balance = calculate_remaining_balance(4000, 1200, 300, 500)
-print("Remaining balance using *args decorator:", remaining_balance)
+# Execution
+for _ in range(3):
+    try:
+        salary_input = int(input("Enter salary: "))
+        expenses_input = input("Enter expenses (comma-separated): ")
+        expenses = list(map(int, expenses_input.split(",")))
+        total = some_func(salary_input, expenses)
+        if total is not None:
+            print(f"Remaining balance: {total}")
+            break
+    except ValueError:
+        print("Invalid input. Please enter valid numerical values.")
 
-OR
-
-def decorator_sum(func):
-    def wrapper(*args):
-        # Extract salary and expenses based on position
-        salary = args[0]  # First argument is salary
-        expenses = args[1]  # Second argument is a list of expenses
-        
-        # Calculate total expense
-        total_expense = sum(expenses)
-        
-        # Pass processed arguments to the original function
-        return func(salary, total_expense)
-    return wrapper
-
-@decorator_sum
-def some_func(salary, total_expense):
-    return salary - total_expense  # Subtract total expenses from salary
-
-# Pass salary and expenses as positional arguments
 remaining_bal = some_func(10000, [500, 500])
 print("Remaining Balance (using args):", remaining_bal)
 
