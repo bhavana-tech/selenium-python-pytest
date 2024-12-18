@@ -46,6 +46,60 @@ total=some_func(salary_input,expenses)
 print(int(total))
 
 -------------------------------------------------------------------------------
+Method 1c: Exceptions:
+class NoValueError(Exception):
+    pass
+
+class NotAStringError(Exception):
+    pass
+
+class EmptyStringError(Exception):
+    pass
+
+def some_func(salary,expenses):
+    
+    try:
+        
+        if not isinstance(salary,(int,float)):
+            raise NotAStringError("Please enter salary in numericals or flaot")
+            
+        if salary <= 0:
+            raise EmptyStringError("salary cannot be zero")
+        
+        if not expenses:
+            raise NoValueError("Expenses cannot be empty")
+            
+        if any(expense > salary for expense in expenses):
+            raise ValueError("Expenses cannot be greater than salary")
+            
+        balance=salary  
+        for expense in expenses:
+            balance-= expense
+        
+        return balance
+    
+    except Exception as e:
+        print(e)
+        return None
+        
+    finally:
+        print("balance calc is done")
+        
+        
+try:
+    for i in range(3):
+        salary_input=int(input("Enter salary"))
+
+        expenses_input=input("Enter expenses")
+
+        expenses=list(map(int,expenses_input.split(",")))
+
+        total=some_func(salary_input,expenses)
+        if total is not None:
+            print(int(total))
+except:
+    print("invlaid input")
+------------------------------------------------------------------------------------------------------
 Method 2: Using decorators without *args and **kwargs
 
 # Using decorators with no *args or **kwargs
