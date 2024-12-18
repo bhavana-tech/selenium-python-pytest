@@ -28,6 +28,24 @@ print(int(balance))
 
 
 ------------------------------------------------------------------------
+
+Method 1B: 
+def some_func(salary,expenses):
+    
+    balance=salary
+    for expense in expenses:
+        balance-= expense
+        
+    return balance
+    
+salary_input=int(input("Enter salary"))
+expenses_input=input("Enter expenses")
+expenses=map(int,expenses_input.split(","))
+
+total=some_func(salary_input,expenses)
+print(int(total))
+
+-------------------------------------------------------------------------------
 Method 2: Using decorators without *args and **kwargs
 
 # Using decorators with no *args or **kwargs
