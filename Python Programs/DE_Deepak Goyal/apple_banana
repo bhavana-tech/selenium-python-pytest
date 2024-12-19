@@ -22,6 +22,68 @@ def test_calculate_total_cost():
 The function to calcualte the total cost is in seperate file. The test cases are written in seperate file. We use pytest because pytest framework allows to add as many test cases in future. 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Method 1A: Using exceptions and not using any decorators:
+
+# enter apple price and its count. Enter banana count and its price. calculate the total price
+
+class NoValueError(Exception):
+    pass
+
+class CustomValueError(Exception):
+    pass
+
+
+def calculate_price(apple_count,apple_price,banana_count,banana_price):
+    
+    try:
+        
+        if not isinstance(apple_count,(int,float)) or not isinstance(banana_count,(int,float)):
+            raise ValueError("The count should be always int or float")
+            
+        if not isinstance(apple_price,(int,float)) or not isinstance(banana_price,(int,float)):
+            
+            raise ValueError("The count should be always int or float")
+            
+        if (apple_count or banana_count) <= 0:
+            raise CustomValueError("Value cannot be negative")
+            
+        if (apple_price or banana_price) <=0:
+            raise CustomValueError("Value cannot be negative")
+            
+        # if apple_count isinstance:
+        #     print("Cannot be empty")
+        
+        return apple_count *apple_price + banana_count * banana_price
+        
+    except Exception as e:
+        print(e)
+        return None
+        
+    finally:
+        print(" ")
+
+for i in range(1):
+    
+    try:
+        apple_count=int(input("Enter apple count"))
+        apple_price=int(input("Enter apple price"))
+        banana_count=int(input("Enter banana count"))
+        banana_price=int(input("Enter banana price"))
+        total_price=calculate_price(apple_count,apple_price,banana_count,banana_price)
+    
+        if total_price is not None:
+            print(int(total_price))
+    
+        else:
+            print("Invalid input, can't calculate")
+    except Exception as e:
+        print("Invalid input!")
+       
+    
+
+
+-------------------------------------------------------------------------------------------------
 method 2:
 
 apple_price=int(input("Enter the apple price"))
