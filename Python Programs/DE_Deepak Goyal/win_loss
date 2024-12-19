@@ -1,1 +1,57 @@
+# A team won 28 matches this season, and last season they won 18 matches. Declare variables current_season_wins and last_season_wins with respective values. Calculate the increase in matches won and store it in win_difference.
 
+Mehod 1: Only exception, no decorators
+class NoValueError(Exception):
+    pass
+
+class CustomValueError(Exception):
+    pass
+
+class EmptyStringError(Exception):
+    pass
+
+def calc():
+    
+    try:
+              
+        if not isinstance(current_season_wins,int) or not isinstance(last_season_wins,int):
+            
+            raise CustomValueError("enter positive number only")
+        
+        if current_season_wins < 0 or last_season_wins < 0:
+            
+            raise CustomValueError("enter positive integer")
+            
+        current_season_wins=int(input("enter current_season_wins"))
+        last_season_wins=int(input("enter last_season_wins"))    
+ 
+        win_difference=current_season_wins-last_season_wins
+     
+        #win_difference=current_season_wins-last_season_wins
+    
+        return  win_difference     
+    
+    except Exception as e:
+        print(e)
+        return None
+    
+    finally:
+        print(" ")
+    
+try:
+    
+    current_season_wins=int(input("enter current_season_wins"))
+    last_season_wins=int(input("enter last_season_wins"))    
+ 
+    win_difference=current_season_wins-last_season_wins
+        
+        
+    if win_difference is not None:
+        print(win_difference)
+    else:
+        print("invalid input, so no res")
+except Exception as e:
+    print("invalid input, so no res")
+
+ 
+        
