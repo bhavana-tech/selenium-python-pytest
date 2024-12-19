@@ -81,9 +81,84 @@ for i in range(1):
         print("Invalid input!")
        
     
-
-
 -------------------------------------------------------------------------------------------------
+Method 1B: Using exceptions and decorators but not with a*args and **kwargs:
+# enter apple price and its count. Enter banana count and its price. calculate the total price
+
+class NoValueError(Exception):
+    pass
+
+class CustomValueError(Exception):
+    pass
+
+
+def deco_calculate_price(func):
+    
+    def wrapper(apple_count,apple_price,banana_count,banana_price):
+        try:
+            if not isinstance(apple_count,(int,float)) or not isinstance(banana_count,(int,float)):
+                raise ValueError("The count should be always int or float")
+            
+            if not isinstance(apple_price,(int,float)) or not isinstance(banana_price,(int,float)):
+                raise ValueError("The count should be always int or float")
+            
+            if (apple_count or banana_count) <= 0:
+                raise CustomValueError("Value cannot be negative")
+            
+            if (apple_price or banana_price) <=0:
+                raise CustomValueError("Value cannot be negative")
+            
+            if not apple_count:
+                print("apple count cannot be empty")
+                
+            if not apple_price:
+                print("apple price cannot be empty")
+                
+            if not banana_count:
+                print("banana count cannot be empty")
+                
+            if not banana_price:
+                print("banana price cannot be empty")
+        
+            
+        
+        except Exception as e:
+            print(e)
+            return None
+        
+        finally:
+            print(" ")
+            
+            return func(apple_count,apple_price,banana_count,banana_price)
+    return wrapper
+
+@deco_calculate_price
+def calculate_price(func):
+    
+    return apple_count*apple_price + banana_count*banana_price
+    
+for i in range(4):
+    try:
+        apple_count=int(input("Enter apple count"))
+        apple_price=int(input("Enter apple price"))
+        banana_count=int(input("Enter banana count"))
+        banana_price=int(input("Enter banana price"))
+            
+        total_price=apple_count*apple_price + banana_count*banana_price
+       
+       
+        if total_price is not None:
+            print(int(total_price))
+    
+        else:
+            print("Invalid input, can't calculate")
+                
+    except Exception as e:
+        print("Invalid input!")
+       
+    
+
+---------------------------------------------------------------------------------------------------------------------------
 method 2:
 
 apple_price=int(input("Enter the apple price"))
