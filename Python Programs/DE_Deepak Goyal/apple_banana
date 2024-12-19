@@ -173,24 +173,81 @@ print("Total cost is-->",apple_price*apple_count+banana_price*banana_count)
 
 ----------------------------------------------------------------------------------------------------------------------
 method 3: using decorators and *argrs and **kwargs
-apple_price=int(input("Enter apple price"))
-banana_price=int(input("Enter banana price"))
-apple_count=int(input("Enter apple count"))
-banana_count=int(input("Enter banana count"))
+# enter apple price and its count. Enter banana count and its price. calculate the total price
 
-def deco(func):
+class NoValueError(Exception):
+    pass
+
+class CustomValueError(Exception):
+    pass
+
+
+def deco_calculate_price(func):
+    
     def wrapper(*args,**kwargs):
-        return func(*args,**kwargs)
-        print("Before wrapper")
+        try:
+            if not isinstance(apple_count,(int,float)) or not isinstance(banana_count,(int,float)):
+                raise ValueError("The count should be always int or float")
+            
+            if not isinstance(apple_price,(int,float)) or not isinstance(banana_price,(int,float)):
+                raise ValueError("The count should be always int or float")
+            
+            if (apple_count or banana_count) <= 0:
+                raise CustomValueError("Value cannot be negative")
+            
+            if (apple_price or banana_price) <=0:
+                raise CustomValueError("Value cannot be negative")
+            
+            if not apple_count:
+                print("apple count cannot be empty")
+                
+            if not apple_price:
+                print("apple price cannot be empty")
+                
+            if not banana_count:
+                print("banana count cannot be empty")
+                
+            if not banana_price:
+                print("banana price cannot be empty")
+        
+            
+        
+        except Exception as e:
+            print(e)
+            return None
+        
+        finally:
+            print(" ")
+            
+            return func(*args,**kwargs)
     return wrapper
-    
-@deco
-def total_cost(apple_count,banana_count): //YOU CAN ALSO USE def total_cost(*args, **kwargs)
-    return apple_price*apple_count +banana_price*banana_count
-    
-total_cost(apple_count,banana_count)
 
-print("The total cost is", total_cost(apple_count,banana_count))
+@deco_calculate_price
+def calculate_price(func):
+    
+    return apple_count*apple_price + banana_count*banana_price
+    
+for i in range(4):
+    try:
+        apple_count=int(input("Enter apple count"))
+        apple_price=int(input("Enter apple price"))
+        banana_count=int(input("Enter banana count"))
+        banana_price=int(input("Enter banana price"))
+            
+        total_price=apple_count*apple_price + banana_count*banana_price
+       
+       
+        if total_price is not None:
+            print(int(total_price))
+    
+        else:
+            print("Invalid input, can't calculate")
+                
+    except Exception as e:
+        print("Invalid input!")
+       
+    
+)
 --------------------------------------------------------------------------------------------------------------
 method 4: using only *args ie only positional argument
 
