@@ -51,5 +51,56 @@ for i in range(9):
         print("ended")
 
 --------------------------------------------------------------------
-Method 2: using def
+Method 2: using function 
+
+class CustomValueError(Exception):
+    pass
+
+def anagram():
+    
+    for i in range(5):
+        string1=input("Enter string1")
+        string2=input("Enter string2")
+    
+        count_string1={}
+        count_string2={}
+     
+   
+        try:
+            for char1 in string1:
+                if char1 in count_string1:
+                    count_string1[char1]+=1
+                
+                else:
+                    count_string1[char1] =1
+                
+            for char2 in string2:
+                if char2 in count_string2:
+                    count_string2[char2]+=1
+                else:
+                    count_string2[char2]= 1
+            
+               
+            if count_string1 == count_string2:
+                print(string1 ,"is anagromed with",string2)
+                continue
+            
+            else:
+                print(string1 ,"is NOT anagromed with",string2)
+            
+        except CustomValueError as e:
+            print(e)
+        
+        finally:
+            print("program ended")
+            
+            
+anagram()
+-----------------------------------------------------------------------------------------------------------------------------
+Method 3: Using decoraotrs
+
+                
+            
+        
+        
 
