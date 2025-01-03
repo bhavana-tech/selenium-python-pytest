@@ -9,6 +9,35 @@ for word in words:
         if word[0] in vowels and word[-1] in vowels:
             print(f"Words that begin with vowel are: {word}")
         
+-------------------------------------------------------------------------------
+#Check if a substring exists in a string and its position.
+class CustomValueException:
+    pass
+
+def some_func():
+    
+    for i in range(5):
+        
+        try:
+            
+            string1=input("enter string fully")
+            sub_string=input("enter sub string")
+   
+            if sub_string in string1:
+                position=string1.find(sub_string)
+                print(sub_string,"present in",string1,"at position",position)
+                
+            else:
+                print("ss not present in s")
+                
+        except CustomValueException as e:
+            print(e)
+            
+        finally:
+            print("exe done")
+
+some_func()
+       
 
 
     
