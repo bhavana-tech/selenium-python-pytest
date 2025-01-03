@@ -1,1 +1,55 @@
+Method 1:Using Exception
+
+class CustomValueError(Exception):
+    pass
+
+for i in range(9):
+    string1=str(input("enter string1"))
+    string2=str(input("enter string2"))
+
+    
+    
+    
+    # if not isinstance(string1 and string2,str):
+    #     raise customValueError("please enter string")
+        
+
+    try:
+        
+        # if not string1 or string2:
+        #     raise CustomValueError("Enter both the strings please")
+        
+        if not isinstance(string1 or string2,str):
+            raise CustomValueError("please enter strings")
+        
+        count_letter_string1={}
+        
+        for char in string1:
+            if char in count_letter_string1:
+                count_letter_string1[char]+=1
+            else:
+                count_letter_string1[char]=1
+        
+        count_letter_string2={}
+
+        for char1 in string2:
+            if char1 in count_letter_string2:
+                count_letter_string2[char1]+=1
+            else:
+                count_letter_string2[char1]=1
+
+        if count_letter_string1 == count_letter_string2:
+            print(string1,"is anagram with",string2)
+        
+        else:
+            print(string1,"is not anagram with",string2)
+    
+    except CustomValueError as e:
+        print("Enter strings only")
+    
+    finally:
+        print("ended")
+
+--------------------------------------------------------------------
+Method 2: using def
 
