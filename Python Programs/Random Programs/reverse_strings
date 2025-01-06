@@ -1,0 +1,28 @@
+# Reverse the words in a given sentence. india --aidni
+# India is beautiful- beautiful is india
+# India is beautiful- lufituaeb si aidni
+
+
+def reverse():
+    
+    try:
+        for p in range(1):
+            data1=str(input("Enter the string:\n"))
+            r=data1.split()
+            test=" ".join(reversed(r))
+            print("Reversed order is:\n",test)
+    except Exception as e:
+        print(e)
+    
+    
+    try:
+        for x in range(2):
+            data=str(input("Enter the string:\n"))
+            rev=data[::-1]
+            print("Reversed strings for whole sentence is:\n",rev)
+    except Exception as e:
+        print(e)
+        
+reverse()
+        
+           
