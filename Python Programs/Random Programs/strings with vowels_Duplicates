@@ -60,6 +60,20 @@ def remove_duplicates():
         print(duplicates_removed_tuple1)
         
 remove_duplicates()
+------------------------------------------------------------------
+Longest Word: Find the longest word in a sentence.
+
+def longest():
+    
+    longest_word=""
+    for i in range(5):
+        data_string=str(input("enter the string"))
+        if len(data_string) > len(longest_word):
+            longest_word=data_string
+        
+    print("The longest word is ",longest_word)
+          
+longest()
 
 
 
