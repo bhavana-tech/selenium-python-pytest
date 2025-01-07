@@ -37,7 +37,31 @@ def some_func():
             print("exe done")
 
 some_func()
-       
+
+---------------------------------------------------------------------------
+#	Remove Duplicates: Remove duplicate characters from a string, list and tuples
+
+
+def remove_duplicates():
+    
+    for i in range(2):
+        main_string=str(input("enter main string"))
+        duplicates_removed=set(main_string)
+        duplicates_removed1="".join(sorted(duplicates_removed))
+        print(duplicates_removed1)
+        
+        list1=[232,34,34,34,34]
+        duplicates_removed_list=list(set(list1))
+        print(duplicates_removed_list)
+        
+        
+        tuple1=[(1,1,1),(1,1,1),(2,3,4)]
+        duplicates_removed_tuple1=set(tuple1)
+        print(duplicates_removed_tuple1)
+        
+remove_duplicates()
+
+
 
 
     
