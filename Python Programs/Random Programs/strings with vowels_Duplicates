@@ -110,6 +110,38 @@ def replace_vowel_with_number():
 replace_vowel_with_number()
 ----------------------------------------------------------------------------------------
 
+Replace the vowels with ts position in alphabets:
+
+def replace_vowel_with_its_position():
+    
+    try:
+        
+        for i in range(1):
+            vowels="aeiou"
+            
+            data=str(input("enter the string\n"))
+            words=data.lower().split()
+            print("Original word is",*words)
+        
+            modified_words=[]
+        
+            for word in words:
+                modified_word=[]
+                for index,char in enumerate(word,start=1):
+                    if char in vowels:
+                        modified_word+=str(index)
+                    else:
+                        modified_word+=char
+                        
+        modified_words.append(modified_word)           
+                       
+        print(modified_words)        
+                
+    except Exception as e:
+        
+        print(e)
+
+replace_vowel_with_its_position()
 
     
     
