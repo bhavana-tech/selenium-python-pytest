@@ -172,6 +172,37 @@ def replace_vowel_with_symbol():
         print("Error:", e)
 
 replace_vowel_with_symbol()
-
+----------------------------------------------------------------------------------------------------------------
+Replace vowels cyclically:
+def replace_cyclically():
+    
+    try:
+        for i in range(1):
+            
+            vowels="aeiou"
+            cyclically_replace={vowels[i]:vowels[(i+1)% len(vowels)] for i in range(len(vowels))}
+            
+            data=str(input("enter the string"))
+            words=data.lower().split()
+            
+            modified_words=[]
+            
+            for word in words:
+                modified_word=[]
+                for char in word:
+                    if char in vowels:
+                        modified_word+=cyclically_replace[char]
+                    else:
+                        modified_word+=char
+                    
+            modified_words.append(modified_word)
+            print(modified_word)     
+    
+    except Exception as e:
+        print(e)
+        
+    
+replace_cyclically()
+                        
     
     
