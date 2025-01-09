@@ -142,6 +142,36 @@ def replace_vowel_with_its_position():
         print(e)
 
 replace_vowel_with_its_position()
+-----------------------------------------------------------------------------------------
+REplace vowels with symbols:
+def replace_vowel_with_symbol():
+    try:
+        vowels = "aeiou"
+        symbol = "*"
+        
+        for i in range(3):  # Loop 3 times for input
+            data = input("Enter the string:\n")
+            words = data.lower().split()
+            print("Original words:", *words)
+        
+            modified_words = []
+        
+            for word in words:
+                modified_word = ""
+                for char in word:
+                    if char in vowels:
+                        modified_word += symbol  # Replace vowel with a symbol
+                    else:
+                        modified_word += char  # Keep consonants as they are
+                modified_words.append(modified_word)
+        
+            # Print modified result
+            print("Modified words:", *modified_words)
+    
+    except Exception as e:
+        print("Error:", e)
+
+replace_vowel_with_symbol()
 
     
     
