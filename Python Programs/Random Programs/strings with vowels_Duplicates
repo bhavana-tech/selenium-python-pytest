@@ -75,7 +75,40 @@ def longest():
           
 longest()
 
+--------------------------------------------------------------------
+def replace_vowel_with_number():
+    
+    try:
+        
+        for i in range(3):
+            vowels="aeiou"
+            replace_vowels={'a':'p','e':'g','i':'p','o':'r','u':'q'}
+            data=str(input("enter the string\n"))
+            words=data.lower().split()
+            print("Original word is",*words)
+        
+            modified_word=[]
+        
+            for word in words:
+                for char in word:
+                    if char in vowels:
+                        #replace vowels in words with a=1,e=2,i=3
+                        modified_word+=str(replace_vowels[char])
+                    else:
+                        modified_word+=char
+        
+        #print(*modified_word)
+        
+            modified_sentence="".join(modified_word)
+            print("Modified sentence is",modified_sentence)
+                
+                
+    except Exception as e:
+        
+        print(e)
 
+replace_vowel_with_number()
+----------------------------------------------------------------------------------------
 
 
     
