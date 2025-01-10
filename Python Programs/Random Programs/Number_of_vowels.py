@@ -18,3 +18,35 @@ for char, count_vowels in count_vowels.items():
     print(char, count_vowels)
     
 print("sum_of_vowels is---->", sum_of_vowels)
+
+-----------------------------------------------------------------------------
+#Count Digits and Letters: Count the number of digits and alphabetic characters in a string
+
+def countr1():
+    
+    try:
+        
+        for i in range(2):  
+            count_alpha=0
+            count_numbrs=0
+            
+            data=str(input("Enter the string"))
+            
+            for char in data:
+                if char.isalpha():
+                    count_alpha += 1
+                if char.isdigit():
+                    count_numbrs += 1
+                print("APlphabet count=",count_alpha)
+                print("count_numbrs",count_numbrs)
+        
+    except Exception as e:
+        print(e)
+                
+count1()                    
+                    
+            
+          
+            
+        
+            
