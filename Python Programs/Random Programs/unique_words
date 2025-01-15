@@ -19,6 +19,26 @@ def unique():
             
 unique()
 ---------------------------------------------------------------------------
+check if words are unique using set:
+def unique():
+    
+    sentence=input("enter sentence")
+    
+    words=sentence.split()
+    all_words=set(words)
+    
+    duplicates={word for word in words if words.count(word) >1}
+    unique_words=all_words-duplicates
+    if unique_words:
+        print("unique_words are",unique_words)
+    else:
+        print("no")
+            
+            
+
+unique()
+
+--------------------------------------------------------------------------------------
 To check if 2 sets are disjoint:
 
 def check_disjoint():
