@@ -1,0 +1,45 @@
+Check if word in words are unique:
+
+def unique():
+    
+    try:
+        
+        sen=str(input("enter sentence\n"))
+        words=sen.split()
+        unique_words=[]
+        for word in words:
+            if words.count(word) == 1:
+                unique_words.append(word)
+        if unique_words:
+            print("unique words are/is",unique_words)
+        else:
+            print("no unique words found")
+    except Exception as e:
+        print(e)
+            
+unique()
+---------------------------------------------------------------------------
+To check if 2 sets are disjoint:
+
+def check_disjoint():
+    
+    try:
+        
+        for i in range(2):
+            set1=input("Enter set1\n")
+            set1_split1= set1.replace(',',' ')
+            set1_split=set1_split1.split()
+            final_set1=set(map(int, set1_split))
+            set2=input("Enter set2\n")
+            set1_split2= set2.replace(',',' ')
+            set2_split=set1_split2.split()
+            final_set2=set(map(int, set2_split))
+            
+            if final_set1.isdisjoint(final_set2):
+                print("there is disjoint")
+            else:
+                print("there is no disjoint")
+    except Exception as e:
+        print(e)
+        
+check_disjoint()
