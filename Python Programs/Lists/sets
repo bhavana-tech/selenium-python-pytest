@@ -1,0 +1,51 @@
+Frozen sets:
+
+Frozen sets are the immutable version of set. Normal sets are mutable, but frozen sets are immutable. However it suports union, intersection adn difference.
+
+Key features of frozen sets:
+- Once elements are created, they cant be added/ removed.
+- Frozen sets are hashable- that means they can be used as a key i na dictonary or an element of another set. 
+
+
+fset1 = frozenset([1, 2, 3, 4])
+fset2 = frozenset([3, 4, 5, 6])
+
+print("Union:", fset1 | fset2)         # {1, 2, 3, 4, 5, 6}
+print("Intersection:", fset1 & fset2)  # {3, 4}
+print("Difference:", fset1 - fset2)    # {1, 2}
+
+---------------------------------------------------------------------------------
+Set Difference: Find the difference between two sets
+
+
+set1={2,2,2,2} -- #no duplicates allowed in set. Hence {2}
+set2={1,1,1,1} -- #no duplicates allowed in set. Hence {1}
+set3=set1-set2 -#all the set1 elements will be removed from set2
+OR yo ucan use set1.difference(set2)
+print(set3) 
+
+---------------------------------------------------------------------------------
+Common Elements: Find the common elements between two sets
+
+set1 = {1, 2, 3}
+set2 = {4, 5, 6}
+
+common_elements = set1 & set2
+print("Common elements:", common_elements)  # Output: set()
+
+-----------------------------------------------------------------------------
+Symmettric diffeence:
+
+The symmetric difference between two sets returns elements that are in either of the sets but not in both. The symmetric difference between two sets returns elements that are in either of the sets but not in both.
+
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+# Using `^` operator
+sym_diff1 = set1 ^ set2
+print("Symmetric Difference using '^':", sym_diff1)
+
+# Using `symmetric_difference()` method
+sym_diff2 = set1.symmetric_difference(set2)
+print("Symmetric Difference using 'symmetric_difference()':", sym_diff2)
+
