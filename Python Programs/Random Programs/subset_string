@@ -1,0 +1,13 @@
+Subset Check: Check if one set is a subset of another.
+
+def subset():
+    
+    sentence1=input("Enter string1")
+    sentence2=input("Enter string2")
+     
+    if sentence2 in sentence1:
+        print("sentence2 is substring of sentence1")
+    else:
+        print("sentence2 is NOT substring of sentence1")
+         
+subset()
