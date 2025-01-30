@@ -2,35 +2,47 @@
 # Question 4: A travel company charges $250 per person for a weekend trip and gives a $100 group discount for every 5 people. If a group has 15 people Calculate the total cost for the group and store it in group_trip_cost.
 
 
+
+
+# Question 4: A travel company charges $250 per person for a weekend trip and gives a $100 group discount for every 5 people. If a group has 15 people Calculate the total cost for the group and store it in group_trip_cost.
+
+
 class NoValueError(Exception):
     pass
 
-class CustomValueError(Exception):
+
+class NoStringValue(Exception):
     pass
 
 class ZeroStringError(Exception):
     pass
 
-def price():
+
+def trip():
     
     try:
         
-        price_individual=int(input("Enter price for individual"))
-        total_number_people=int(input("Enter number of people going to trip"))
-        discount_per_group=int(input("Enter discount amount per group"))
-        
-        if total_number_people <=0:
-            raise CustomValueError
+        for i in range(2):
             
-        total_price=price_individual * total_number_people
-        
-        discount= (total_number_people//5) * discount_per_group
-        total_price-=discount
-        
-        print(total_price)
-        
-    except Exception as e:
+            total_people=int(input("Enter the total number of persons going to trip"))
+            price_per_person=int(input("Enter the price per person"))
+            dicount_per_group=int(input("Enter the total discount per group"))
+            number_per_group=int(input("Enter the number od persons under each group"))
+            
+            if not isinstance(total_people,int):
+                raise NoValueError
+                
+                
+            total_price=total_people * price_per_person
+            total_discount=total_people//5 * dicount_per_group
+            total_price-=total_discount
+            print(total_price)
+        return total_price
+            
+    except Eception as e:
         print(e)
-price()
+            
+    finally:
+        print("done!")
         
-        
+trip()
