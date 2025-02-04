@@ -1,0 +1,27 @@
+suppose there are multiple tabs opened and you need to search for tab=accenture and then close it...write using selenium python logic ...below i s sample example 
+
+  from selenium import webdriver
+
+# Initialize WebDriver (ensure the appropriate driver is installed)
+driver = webdriver.Chrome()
+
+# Open multiple tabs for demonstration (optional, remove if unnecessary)
+driver.execute_script("window.open('https://www.google.com', '_blank');")
+driver.execute_script("window.open('https://www.accenture.com', '_blank');")
+driver.execute_script("window.open('https://www.bing.com', '_blank');")
+
+# Store all open window handles
+window_handles = driver.window_handles
+main_window = driver.current_window_handle
+
+# Iterate over all tabs to find the one with 'Accenture' in the title
+for handle in window_handles:
+    driver.switch_to.window(handle)
+    if "Accenture" in driver.title:
+        print("Found Accenture tab, closing it.")
+        driver.close()
+        break  # Exit loop after closing the tab
+
+# Switch back to the main window if it still exists
+if main_window in driver.window_handles:
+    driver.switch_to.window(main_window)
