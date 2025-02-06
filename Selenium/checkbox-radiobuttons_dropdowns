@@ -1,1 +1,45 @@
+Radio buttons and checboxes:
+For handling radio buttons, i locate the using locators and then use .click() and then verify selection using is_selected(). i use pytest fixtures to initialize the browser, open the page and then structure tests efficiently.
 
+
+For handling dropwdown,  i use Select class and then select by visible text, value or index. 
+
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.commom.keys import keys
+import time
+
+@pytest.fixture(scope="session")
+def browser():
+  driver=chrome.webdriver90
+  yield driver
+  print("launch browser")
+driver.quit
+
+@pytest.fixture(scope="function")
+def open-page(browser):
+driver.get("url")
+time.sleep(2)
+yield
+print("navigated to page)
+
+
+def radio_button-test(browser):
+radio_button=browser.find_element(BY.id,"username").click()
+assert radio-button.is-selected(), "Radio button was not selected"
+print("radio button was selected")
+
+def checkbox-test(browser)
+check_box=browser.findElement(by.id,"efew").click()
+
+assert checkbox.is-selected(),"check box is not selected"
+
+
+def test_dropdown(browser, open_test_page):
+    dropdown_element = browser.find_element(By.XPATH, "//select")
+    dropdown = Select(dropdown_element)
+    dropdown.select_by_visible_text("Volvo")  # Example option
+    selected_option = dropdown.first_selected_option.text
+    assert selected_option == "Volvo", "Dropdown selection failed"
+    print(f"Dropdown selected successfully: {selected_option}")
