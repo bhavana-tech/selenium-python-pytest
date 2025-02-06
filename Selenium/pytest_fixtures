@@ -1,1 +1,48 @@
+Question: I want to open a site (www.money.control.com) and verify the page title is "money".. if the page title is "money", print as "yes, found the page expected". if not print "oops". Execute the above query using selenium, python language,
+pytest framework and use all fixtures available in pytest framework.
 
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Fixture for session-level setup (runs once for the entire test session)
+@pytest.fixture(scope="session")
+def browser():
+    # Initialize the WebDriver (e.g., Chrome)
+    driver = webdriver.Chrome()
+    print("\nSession setup: Browser launched")
+    yield driver  # Provide the driver instance to the tests
+    # Teardown: Close the browser after all tests are done
+    driver.quit()
+    print("\nSession teardown: Browser closed")
+
+# Fixture for module-level setup (runs once per test module)
+@pytest.fixture(scope="module")
+def module_setup():
+    print("\nModule setup: Runs once per module")
+    yield
+    print("\nModule teardown: Runs once per module")
+
+# Fixture for function-level setup (runs before and after each test function)
+@pytest.fixture(scope="function")
+def function_setup():
+    print("\nFunction setup: Runs before each test")
+    yield
+    print("\nFunction teardown: Runs after each test")
+
+# Test function to verify the page title
+def test_verify_page_title(browser, module_setup, function_setup):
+    # Open the website
+    browser.get("https://www.moneycontrol.com")
+    
+    # Get the page title
+    page_title = browser.title
+    
+    # Verify the page title and print the appropriate message
+    if "money" in page_title.lower():
+        print("Yes, found the expected page title.")
+    else:
+        print("Oops, the page title is not as expected.")
+    
+    # Assertion to fail the test if the title is not as expected
+    assert "money" in page_title.lower(), f"Expected 'money' in title, but got '{page_title}'"
