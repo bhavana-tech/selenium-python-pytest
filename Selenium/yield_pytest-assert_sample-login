@@ -1,0 +1,29 @@
+Question: Create a new python file for your tests and write your selenium tests using pytest. 
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.keys import keys
+from selenium.webdriver.common.by import by
+from selenium.webdriver.chrome.service import service
+from selenium.webdriver.support.ui import Webserverwait
+from selenium.webdriver.support import expectedconditions as Ec
+
+service_object=service(r"//location of chromedriver.exe)
+driver=chrome.webdriver(service_object)
+
+@pytest.fixture(scope="module")
+def browser():
+driver.get("url")
+yield driver
+driver.close()
+
+def login_test(browser):
+   
+   WebdriverWait(driver,100).until(EC.presence-of-element_located((by.iD,"username"))).send-keys("abc")
+   WebdriverWait(driver,100).until(EC.presence-of-element_located((by.iD,"password"))).send-keys("abc")
+   WebdriverWait(driver,100).until(EC.presence-of-element_located((by.iD,"submit"))).send-keys("abc")
+   assert "successfull" in browser.page_source
+
+
+---------------------
+What is yield? ans - Yield statement will just give the webdriver instance to test functions. Everything before ‘yield’ runs before the test and everything after ‘yield” runs after the test. This is where actual interaction with the browser happens.
