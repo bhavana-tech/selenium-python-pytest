@@ -1,1 +1,63 @@
 
+
+Suppose there are 10 windows opened and you want to capture the screenshot of 3rd window. Please write code. Execute the above query using selenium, python language, pytest framework and use all fixtures available in pytest framework.
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# Fixture for session-level setup (runs once for the entire test session)
+@pytest.fixture(scope="session")
+def browser():
+    # Initialize the WebDriver (e.g., Chrome)
+    driver = webdriver.Chrome()
+    print("\nSession setup: Browser launched")
+    yield driver  # Provide the driver instance to the tests
+    # Teardown: Close the browser after all tests are done
+    driver.quit()
+    print("\nSession teardown: Browser closed")
+
+# Fixture for module-level setup (runs once per test module)
+@pytest.fixture(scope="module")
+def module_setup():
+    print("\nModule setup: Runs once per module")
+    yield
+    print("\nModule teardown: Runs once per module")
+
+# Fixture for function-level setup (runs before and after each test function)
+@pytest.fixture(scope="function")
+def function_setup():
+    print("\nFunction setup: Runs before each test")
+    yield
+    print("\nFunction teardown: Runs after each test")
+
+# Test function to open multiple windows and capture a screenshot of the 3rd window
+def test_capture_screenshot_of_third_window(browser, module_setup, function_setup):
+    # Open the initial website
+    browser.get("https://www.example.com")
+    time.sleep(2)  # Wait for the page to load
+
+    # Open 10 new windows (for demonstration purposes)
+    for i in range(10):
+        browser.execute_script("window.open('https://www.example.com', '_blank');")
+        time.sleep(1)  # Wait for each window to open
+
+    # Get all window handles
+    window_handles = browser.window_handles
+    print(f"Total windows opened: {len(window_handles)}")
+
+    # Switch to the 3rd window
+    third_window_handle = window_handles[2]  # Index 2 for the 3rd window
+    browser.switch_to.window(third_window_handle)
+    print("Switched to the 3rd window")
+
+    # Capture a screenshot of the 3rd window
+    screenshot_path = "screenshot_3rd_window.png"
+    browser.save_screenshot(screenshot_path)
+    print(f"Screenshot of the 3rd window saved as: {screenshot_path}")
+
+    # Verify the screenshot was saved
+    import os
+    assert os.path.exists(screenshot_path), "Screenshot file was not created."
+
