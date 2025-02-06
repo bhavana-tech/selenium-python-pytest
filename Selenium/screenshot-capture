@@ -61,3 +61,63 @@ def test_capture_screenshot_of_third_window(browser, module_setup, function_setu
     import os
     assert os.path.exists(screenshot_path), "Screenshot file was not created."
 
+---------------------------------------------------------------------------------------------------------------------
+
+Suppose there are 10 windows opened and you want to capture the screenshots of alternative browser. Please write code.
+
+
+import pytest
+from selenium import webdriver
+import time
+import os
+
+# Fixture for session-level setup (runs once for the entire test session)
+@pytest.fixture(scope="session")
+def browser():
+    driver = webdriver.Chrome()
+    print("\nSession setup: Browser launched")
+    yield driver
+    driver.quit()
+    print("\nSession teardown: Browser closed")
+
+@pytest.fixture(scope="module")
+def module_setup():
+    print("\nModule setup: Runs once per module")
+    yield
+    print("\nModule teardown: Runs once per module")
+
+@pytest.fixture(scope="function")
+def function_setup():
+    print("\nFunction setup: Runs before each test")
+    yield
+    print("\nFunction teardown: Runs after each test")
+
+def test_capture_screenshots_of_alternate_windows(browser, module_setup, function_setup):
+    # Open the initial website
+    browser.get("https://www.example.com")
+    time.sleep(2)  
+
+    # Open 10 new windows
+    for i in range(10):
+        browser.execute_script("window.open('https://www.example.com', '_blank');")
+        time.sleep(1)  
+
+    # Get all window handles
+    window_handles = browser.window_handles
+    print(f"Total windows opened: {len(window_handles)}")
+
+    # Loop through alternate windows (2nd, 4th, 6th, etc.)
+    for index in range(1, len(window_handles), 2):  # Start from index 1 (2nd window) and increment by 2
+        browser.switch_to.window(window_handles[index])
+        print(f"Switched to window {index + 1}")  # +1 for user-friendly numbering
+
+        # Capture a screenshot
+        screenshot_path = f"screenshot_window_{index + 1}.png"
+        browser.save_screenshot(screenshot_path)
+        print(f"Screenshot saved: {screenshot_path}")
+
+        # Verify screenshot was saved
+        assert os.path.exists(screenshot_path), f"Screenshot for window {index + 1} was not created."
+
+
+
