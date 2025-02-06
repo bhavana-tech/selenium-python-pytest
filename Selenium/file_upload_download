@@ -1,0 +1,63 @@
+Selenium doesn't interact with system dialogs, so to upload a file, we use send_keys() to directly input the file path into an <input type="file"> element.
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# Fixture for setting up the browser
+@pytest.fixture(scope="session")
+def browser():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_file_upload(browser):
+    # Navigate to file upload page
+    browser.get("https://www.file.io/")  # Example file upload site
+    time.sleep(2)
+
+    # Locate the file input element and upload file
+    file_input = browser.find_element(By.XPATH, "//input[@type='file']")
+    file_path = "/path/to/your/file.txt"  # Update with the actual file path
+    file_input.send_keys(file_path)
+    
+    time.sleep(2)  # Wait for upload
+    assert "Upload successful" in browser.page_source, "File upload failed"
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+To handle file downloads, we need to modify the browser's default download directory. This is done using ChromeOptions or FirefoxOptions.
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+import os
+
+# Fixture to configure Chrome for automatic downloads
+@pytest.fixture(scope="session")
+def browser():
+    download_path = "/path/to/download/directory"  # Set download directory
+    
+    options = webdriver.ChromeOptions()
+    prefs = {"download.default_directory": download_path}
+    options.add_experimental_option("prefs", prefs)
+
+    driver = webdriver.Chrome(options=options)
+    yield driver
+    driver.quit()
+
+def test_file_download(browser):
+    browser.get("https://www.sample-videos.com/")  # Example download site
+    time.sleep(2)
+
+    # Click on the download link
+    download_button = browser.find_element(By.LINK_TEXT, "Download Sample Text File")
+    download_button.click()
+    time.sleep(5)  # Wait for the file to download
+
+    # Verify file download
+    downloaded_file = "/path/to/download/directory/sample.txt"
+    assert os.path.exists(downloaded_file), "File was not downloaded"
+
