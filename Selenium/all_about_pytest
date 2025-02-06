@@ -27,3 +27,36 @@ def login_test(browser):
 
 ---------------------
 What is yield? ans - Yield statement will just give the webdriver instance to test functions. Everything before ‘yield’ runs before the test and everything after ‘yield” runs after the test. This is where actual interaction with the browser happens.
+--------------------
+What is @pytest.fixtures? Here @pytest.fixture is a decorator used in pytest framework .It is used primary to set up a state before the test runs and cleans up afterwards
+---------------------------------------------------------
+What is fixtures in pytest? ans - in testng, we normally use @before suite which is an annotation ..this is related to java i guess. but pertaining to pytest we use fixtures with scope=session. Why do we use annotations because some tasks must be run before actaully running the test.
+eg initializing webdriver instance, so intead of repeating the same set up code everytime, we can centralize it in @beforesuite. 
+
+In below example, browser is a fixture that gets executed once per test session. 
+Example of fixtures in pytest:
+
+import pytest
+from selenium import webdriver
+
+@pytest.fixture(scope="session")
+def browser():
+driver=webdriver.Chrome()
+yield driver()
+driver.close()
+
+def login_test(browser):
+browser.get("url")
+browser.find_element(BY.ID,"username").send_keys("ewew")
+assert "welcome" in browser.page_source
+assert "accenture" in page_title
+
+-----------------------------------------------------------------------------------------------------------------
+What are fixtures in pytest? 
+
+Fixtures are similar to ANNOTATIONS IN testng. We use fixtures because sme tasks need to be run before the actaul test runs and some needs to be run after the test run gets comepleted.
+We use many fixtures like -- scope="session" , scope="module", scope="function"
+
+----------------------------------------------------------------------------------------------------------------
+
+
