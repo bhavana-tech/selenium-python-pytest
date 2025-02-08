@@ -1,0 +1,56 @@
+What are frames? How will you handle frames in Selenium -python-pytest? 
+
+Whenever there are ads, widgets or isolated content, we use frames. In selenium, we cant directly interact with elements inside a frame. we should go to a parent frame and then to child frame and then interact.
+
+We can switch to a frame using id,name and WebElement and then sitch to the main content.
+ 
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for the browser session."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_handle_frame_by_index(browser):
+    """Test switching to a frame by index."""
+    browser.get("https://www.w3schools.com/html/tryit.asp?filename=tryhtml_iframe")
+    
+    # Switch to the first (0-indexed) frame
+    browser.switch_to.frame(0) or browser.switch-to.frame("name of frame")
+    
+    # Interact with content inside the iframe
+    header_text = browser.find_element(By.TAG_NAME, "h1").text
+    assert "This page is displayed in an iframe" in header_text, "Frame handling failed by index!"
+    
+    # Switch back to main content
+    browser.switch_to.default_content()
+    print("Handled frame by index successfully!")
+    
+   oR
+   
+def test_handle_frame_by_webelement(browser):
+    """Test switching to a frame by WebElement."""
+    browser.get("https://www.w3schools.com/html/tryit.asp?filename=tryhtml_iframe")
+    
+    # Locate the iframe element
+    iframe_element = browser.find_element(By.ID, "iframeResult")
+    
+    # Switch to the frame using WebElement
+    browser.switch_to.frame(iframe_element)
+    
+    # Interact with content inside the iframe
+    header_text = browser.find_element(By.TAG_NAME, "h1").text
+    assert "This page is displayed in an iframe" in header_text, "Frame handling failed by WebElement!"
+    
+    # Switch back to main content
+    browser.switch_to.default_content()
+    print("Handled frame by WebElement successfully!")
