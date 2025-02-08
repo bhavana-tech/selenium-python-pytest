@@ -43,3 +43,13 @@ def test_dropdown(browser, open_test_page):
     selected_option = dropdown.first_selected_option.text
     assert selected_option == "Volvo", "Dropdown selection failed"
     print(f"Dropdown selected successfully: {selected_option}")
+------------------------------------------------------------------------
+
+What are the differnet ways to handle dropdowns:
+There are two ways to handle dropdowns- select class and another is Action Class
+
+from selenium.webdriver.common.action_class import ActionChains
+dropdown=driver.findElement(by.ID,"menu")
+ActionChains(driver).move-to-element(dropdown).click().perform()
+----------------------------------------------------------------------------
+
