@@ -1,5 +1,15 @@
 There is a dropdown list on a web page along with link to another page. Upon clicking on click, a new tab is opened and there is another drop down. How will you find the common options between these dropdowns. Explain step by step.
 
+Answer:
+Open the first webpage and extract options from the first dropdown.
+Click the link to open a new tab.
+Switch to the new tab.
+Extract options from the second dropdown.
+Find common elements between both dropdowns.
+Use assertions to verify common values.
+
+
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
