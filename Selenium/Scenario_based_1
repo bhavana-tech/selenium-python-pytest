@@ -1,0 +1,62 @@
+There is a dropdown list on a web page along with link to another page. Upon clicking on click, a new tab is opened and there is another drop down. How will you find the common options between these dropdowns. Explain step by step.
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for the browser session."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_find_common_dropdown_options(browser):
+    """Test case to find common options between two dropdowns on different tabs."""
+    
+    # Step 1: Open the webpage
+    browser.get("https://example.com")  # Replace with actual URL
+    
+    # Step 2: Locate the first dropdown and get options
+    first_dropdown_element = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//select[@id='dropdown1']"))
+    )
+    first_dropdown = Select(first_dropdown_element)
+    first_options = {option.text for option in first_dropdown.options}  # Store as a set
+    print(f"Options in first dropdown: {first_options}")
+    
+    # Step 3: Click the link to open a new tab
+    new_tab_link = WebDriverWait(browser, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//a[@id='newTabLink']"))  # Replace with actual locator
+    )
+    new_tab_link.click()
+    
+    # Step 4: Switch to the new tab
+    WebDriverWait(browser, 10).until(lambda d: len(d.window_handles) > 1)  # Wait for new tab
+    browser.switch_to.window(browser.window_handles[1])  # Switch to the new tab
+    
+    # Step 5: Locate the second dropdown and get options
+    second_dropdown_element = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//select[@id='dropdown2']"))  # Replace with actual locator
+    )
+    second_dropdown = Select(second_dropdown_element)
+    second_options = {option.text for option in second_dropdown.options}  # Store as a set
+    print(f"Options in second dropdown: {second_options}")
+
+    # Step 6: Find common options
+    common_options = first_options.intersection(second_options)
+    print(f"Common options: {common_options}")
+
+    # Step 7: Assert that at least one common option exists
+    assert len(common_options) > 0, "No common options found between dropdowns"
+
+    # Step 8: Close the new tab and switch back to the original tab
+    browser.close()
+    browser.switch_to.window(browser.window_handles[0])  # Switch back to the main tab
+
