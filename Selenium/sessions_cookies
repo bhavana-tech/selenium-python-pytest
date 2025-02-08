@@ -1,0 +1,52 @@
+
+How do you handle browser cookies and sessions in Selenium test automation?
+
+In Selenium with Pytest, cookies and sessions are essential for managing authentication, maintaining state, and reducing login redundancy.
+
+import pytest
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for WebDriver."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_handle_cookies(browser):
+    """Test to handle browser cookies in Selenium-Pytest."""
+
+    # ✅ Open the webpage
+    browser.get("https://www.example.com")  
+    time.sleep(3)
+
+    # ✅ Adding a Cookie
+    browser.add_cookie({"name": "user_token", "value": "abc123"})
+    print("Added a test cookie.")
+
+    # ✅ Get and Print All Cookies
+    cookies = browser.get_cookies()
+    print("All Cookies:", cookies)
+
+    # ✅ Fetch a Specific Cookie
+    user_cookie = browser.get_cookie("user_token")
+    print("Fetched Cookie:", user_cookie)
+
+    # ✅ Delete a Specific Cookie
+    browser.delete_cookie("user_token")
+    print("Deleted user_token cookie.")
+
+    # ✅ Verify Cookie Deletion
+    assert browser.get_cookie("user_token") is None, "Cookie deletion failed!"
+
+    # ✅ Delete All Cookies
+    browser.delete_all_cookies()
+    print("Deleted all cookies.")
+
+    # ✅ Verify All Cookies are Deleted
+    assert not browser.get_cookies(), "All cookies were not deleted!"
