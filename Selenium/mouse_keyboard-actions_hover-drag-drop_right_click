@@ -1,0 +1,74 @@
+all mouse actions like - hover, right click, double click, drag and drop , keyboard inpu tare performed using ActionChains
+
+--------------Handling mouse hover------------------------------
+import pytest
+import selenium.webdriver
+from selenium.webdriver.chrome.service import service
+from selenium.webdriver.common.keys import keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebdriverWait
+from selenium.webdriver.support import expectedConditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+
+@pytest.fixture(scope="session")
+def browser():
+service_object=Service("//location of chromedriver.exe")
+driver=Webdriver.chrome(service=service_object)
+driver.maximise.window()
+driver.quit()
+
+
+def test_hover(browser):
+browser.get("url")
+hover_element=Webdriver(driver,10).until(EC.Presence_of_element-located((By.id,"test")))
+Actionchains(driver).move_to_element(hover-element).perform()
+print("items hovered successfully")
+
+-------------------------Handling right click---------------------------------
+import pytest
+import selenium.webdriver
+from selenium.webdriver.chrome.service import service
+from selenium.webdriver.common.keys import keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebdriverWait
+from selenium.webdriver.support import expectedConditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+
+@pytest.fixture(scope="session")
+def browser():
+service_object=Service("//location of chromedriver.exe")
+driver=Webdriver.chrome(service=service_object)
+driver.maximise.window()
+driver.quit()
+
+
+def test-right_click(browser):
+right_click-element==Webdriver(driver,10).until(EC.Presence_of_element-located((By.id,"test")))
+Actionchains(driver).context-click(right_click-element).perform()
+print("items right clicked successfully")
+
+
+-----------------------------------drag and drop------------------------------------
+
+import pytest
+import selenium.webdriver
+from selenium.webdriver.chrome.service import service
+from selenium.webdriver.common.keys import keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebdriverWait
+from selenium.webdriver.support import expectedConditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+
+@pytest.fixture(scope="session")
+def browser():
+service_object=Service("//location of chromedriver.exe")
+driver=Webdriver.chrome(service=service_object)
+driver.maximise.window()
+driver.quit()
+
+  # Switch to the iframe where the elements are located
+browser.switch-to-frame(WebdriverWait(driver,10).until(EC.presence_of_element-located((By.iD,"test"))))
+
+source_element=WebdriverWait(driver,10).until(EC.presence_of_element_located((by.id,"source_element")))
+target_element=WebdriverWait(driver,10).until(EC.presence_of_element_located((by.id,"target_element")))
+actionChains(driver).drag_and-drop(source_element,target-element).perform()
