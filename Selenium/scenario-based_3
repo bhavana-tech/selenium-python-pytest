@@ -1,0 +1,44 @@
+Write a code to find the common elements between 2 array lists in selenium python pytest
+
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for WebDriver."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_find_common_elements(browser):
+    """Test to find common elements between two lists in Selenium-Pytest."""
+    
+    # Define two lists
+    list1 = ["Selenium", "Python", "Java", "C++", "JavaScript"]
+    list2 = ["Python", "Java", "Ruby", "C#", "JavaScript"]
+
+    # Find common elements using set intersection
+    common_elements = list(set(list1) & set(list2))
+
+    print(f"Common elements: {common_elements}")
+
+    # Open the test webpage
+    browser.get("https://artoftesting.com/samplesiteforselenium")
+
+    # Validate that common elements exist in some form on the webpage (Example scenario)
+    for element in common_elements:
+        try:
+            if browser.find_elements(By.XPATH, f"//*[contains(text(), '{element}')]"):
+                print(f"Element '{element}' found on the webpage.")
+            else:
+                print(f"Element '{element}' not found on the webpage.")
+        except Exception as e:
+            print(f"Error checking element '{element}': {e}")
+
+    assert len(common_elements) > 0, "No common elements found!"
+
