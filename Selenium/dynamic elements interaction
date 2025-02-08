@@ -1,5 +1,15 @@
-import time
 
+"Write a Selenium script using Python to automate interactions on a sample website. The script should:
+
+Open the website https://artoftesting.com/samplesiteforselenium using Chrome.
+Maximize the browser window.
+Click on the male radio button.
+Find and click all checkboxes present in a specific form section.
+Use WebDriverWait to handle synchronization issues.
+Handle exceptions and print an appropriate message if the script fails."
+
+---------------------------------Normal answer without pytest------------------------------------------
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -33,3 +43,48 @@ except Exception as e:
 
 finally:
     print("finally")
+
+
+---------------------------------Answer with pytest------------------------------------------
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for the browser session."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver  # Provide the driver to the test
+    driver.quit()  # Teardown
+
+def test_radio_and_checkboxes(browser):
+    """Test case to select a radio button and checkboxes."""
+    browser.get("https://artoftesting.com/samplesiteforselenium")
+
+    # Click the male radio button
+    male_radio = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//input[@id='male']"))
+    )
+    male_radio.click()
+    assert male_radio.is_selected(), "Radio button selection failed"
+    print("Clicked on radio button successfully.")
+
+    # Locate all checkboxes in the form section
+    checkboxes = WebDriverWait(browser, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, "//*[@id='commonWebElements']//input[@type='checkbox']"))
+    )
+    print(f"Number of checkboxes found: {len(checkboxes)}")
+
+    # Click all checkboxes
+    for checkbox in checkboxes:
+        checkbox.click()
+        assert checkbox.is_selected(), "Checkbox selection failed"
+
+    print("All checkboxes clicked successfully.")
+
