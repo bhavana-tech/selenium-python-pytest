@@ -1,0 +1,48 @@
+"How do you fetch values from a dictionary (map) and use them in a Selenium-Pytest automation script?"
+
+Alternatively:
+
+"How can you store and retrieve test data dynamically in a Selenium-Pytest script using a dictionary?"
+"Write a Selenium-Pytest script that utilizes a dictionary to store element locators and fetches values dynamically for test execution."
+"How do you implement data-driven testing in Selenium-Pytest using Python dictionaries?"
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+
+# Define a dictionary (map) with keys and values
+test_data = {
+    "url": "https://artoftesting.com/samplesiteforselenium",
+    "radio_button_id": "male",
+    "checkbox_xpath": "//input[@value='Automation']",
+}
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for WebDriver."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_fetch_values_from_map(browser):
+    """Test to fetch values from a dictionary and use in Selenium."""
+    # Fetching values from the dictionary
+    url = test_data["url"]
+    radio_button_id = test_data["radio_button_id"]
+    checkbox_xpath = test_data["checkbox_xpath"]
+
+    # Open the webpage
+    browser.get(url)
+
+    # Click on the radio button using key from dictionary
+    browser.find_element(By.ID, radio_button_id).click()
+    print(f"Clicked on radio button: {radio_button_id}")
+
+    # Click on the checkbox using key from dictionary
+    browser.find_element(By.XPATH, checkbox_xpath).click()
+    print(f"Clicked on checkbox with XPath: {checkbox_xpath}")
+
+    assert browser.find_element(By.ID, radio_button_id).is_selected(), "Radio button not selected!"
