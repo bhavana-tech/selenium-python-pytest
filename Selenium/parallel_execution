@@ -1,1 +1,25 @@
+In pytest, we can execute parallel execution using a pluggin called "pytest x-dist". We can use "pytest.mark.parameterize" to execute with multiple inputs. use "pytest -n 2" to run tests in 2 parallel threads
 
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+@pytest.fixture(scope="function")
+def browser():
+    """Setup and teardown for the browser session."""
+    service_object = Service(r"C:\Users\Admin\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    driver = webdriver.Chrome(service=service_object)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+@pytest.mark.parameterize("url",["www.google.com","www.yahoo.com","www.zing.com"])
+
+def test():
+browser.get(url)
+WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+assert "Welcome" in browser.current_url,"no browser opened"
+print("some message")
