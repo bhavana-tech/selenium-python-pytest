@@ -38,3 +38,11 @@ print("Deleting firt 4 elements                                        ",list3)
 del list3[-1]
 print("Deleting last item")
 print("Deleting first 4 elements                                        ",list3)
+
+
+-------------------------------------------------------------------------------------------------
+list1=[[1,2],[3,4],[5,6]]
+res=[x for temp in list1 for x in temp]
+print(list(res))
+
+output- 1,2,3,4,5,6
