@@ -1,0 +1,11 @@
+string="india is a good country"
+sentence_split=string.split()
+print(sentence_split)
+
+capitalized=''
+for i in range(len(sentence_split)):
+    cap=sentence_split[i].capitalize()
+    capitalized+=cap + ' '
+print(capitalized)
+
+  output- India Is A Good Country
