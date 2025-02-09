@@ -1,0 +1,6 @@
+from selenium import webdriver
+
+options=driver.find_elements_by_tag_name("options")
+values=option.text for option in options:
+set(values)
+print(values)
