@@ -1,0 +1,26 @@
+string1="Land is green"
+string2="water is blue"
+
+sen1=" ".join(string1.split())
+sen2=" ".join(string2.split())
+
+sen=sen1 + sen2
+
+print(sen)
+
+O/p
+Land is greenwater is blue
+
+------------------------------------------------------------
+we can also use using Replace
+
+string1="Land is green"
+string2="water is blue"
+
+sen1=string1.replace("","")
+
+sen2=string2.replace("","")
+
+sen=sen1 + sen2
+
+print(sen)
