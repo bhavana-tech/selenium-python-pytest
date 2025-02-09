@@ -5,3 +5,11 @@ for i in list1:
             print("Number is even")
         else:
             print("Number is odd")
+
+
+---------------------------------------------------
+another method:
+
+list=[2,4,2,43,3]
+list1=(x for x in list if i/2!=0)
+print(list1)
