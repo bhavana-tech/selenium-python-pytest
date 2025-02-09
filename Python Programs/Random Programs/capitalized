@@ -9,3 +9,12 @@ for i in range(len(sentence_split)):
 print(capitalized)
 
   output- India Is A Good Country
+
+----------------------------------------------------------------------
+
+csv_string="Alice,342,bob"
+test=csv_string.split(",")
+print(test)
+
+output = ['Alice', '342', 'bob']
+---------------------------------------------------------------
