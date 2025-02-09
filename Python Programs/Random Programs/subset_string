@@ -11,3 +11,17 @@ def subset():
         print("sentence2 is NOT substring of sentence1")
          
 subset()
+
+------------------------------------------------------------------------------------------
+remove duplicate from string using set
+
+string1="bhavaanbhava"
+unique="".join(set(string1))
+print(unique)
+----------------------------------------------------------------------------------------------
+
+Remove duplicated frm string using dictionary
+
+string1="fwefwe"
+unique="".join(dict.fromkeys(string1))
+print(unique)
