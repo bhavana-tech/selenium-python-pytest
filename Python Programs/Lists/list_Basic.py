@@ -18,6 +18,15 @@ list1[0]='Replacing_at_0th_position'
 print("AFTER REPLACING at 0th position ie list1[0]=                   ",list1)
 print("Replacing last position is list1[-1]                           ",list1)
 
+WE CAN INSERT TINTO LIST
+list1=["India","uk","usa"]
+list1.insert(1,"germany")
+print(list1)
+
+output is ['India', 'germany', 'uk', 'usa']
+
+=== Code Execution Successful ===
+
 #Replacing multiple elements
 list2=[1,2,3,4,5,6,7,8,9]
 list2[0:5]=[11,12,13,14,15]
