@@ -12,3 +12,21 @@ print(list(res))
   output = 2,4,6,8,10
 
   -----------------------------------
+dict={x:x for x in range(5) if (x%2==0)}
+print(dict)
+
+output=0:0,0:2,0:4,0:6,0:8
+-----------------------------------
+
+dict={1:'apple',2:'banana',3:'cat'}
+res={key*2:value for key,value in dict.items()}
+print(res)
+
+output = {2: 'apple', 4: 'banana', 6: 'cat'}
+---------------------------------------
+dict={1:'apple',2:'banana',3:'cat'}
+
+res={key*2:value if key%2==0 else key*3 for key,value in dict.items()}
+print(res)
+
+------------------------------------------------------------------------
