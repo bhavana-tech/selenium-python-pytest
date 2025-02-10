@@ -15,3 +15,14 @@ sorting of a list
 list=[23,2,5,2,5,8,1,1,2,232,32]
 list.sort(key=lambda x:x)
 print(list)
+
+-------------------------------------------------------------------
+addition of 3 numbers:
+
+x = int(input("enter x: "))  
+y = int(input("enter y: "))  
+z = int(input("enter z: "))  
+res = lambda x, y, z: x + y + z  
+print(res(x, y, z))
+
+----------------------------------------------------------------------
