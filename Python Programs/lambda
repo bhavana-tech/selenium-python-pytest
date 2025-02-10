@@ -26,3 +26,8 @@ res = lambda x, y, z: x + y + z
 print(res(x, y, z))
 
 ----------------------------------------------------------------------
+To square the numbers using map and lambda
+
+numbers=[1,2,3,4,5]
+res=map(lambda x:x**2, numbers)
+print(list(res))
