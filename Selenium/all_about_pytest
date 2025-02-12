@@ -26,7 +26,7 @@ def login_test(browser):
 
 
 ---------------------
-What is yield? ans - Yield statement will just give the webdriver instance to test functions. Everything before ‘yield’ runs before the test and everything after ‘yield” runs after the test. This is where actual interaction with the browser happens.
+What is yield statement? ans - Yield statement will just give the webdriver instance to test functions. Everything before ‘yield’ runs before the test and everything after ‘yield” runs after the test. This is where actual interaction with the browser happens.
 --------------------
 What is @pytest.fixtures? Here @pytest.fixture is a decorator used in pytest framework .It is used primary to set up a state before the test runs and cleans up afterwards
 ---------------------------------------------------------
