@@ -1,0 +1,8 @@
+Tech Mahindra: 
+
+x=int(input("Enter the string x"))
+y=int(input("Enter the string y"))
+
+if (x==4) and (y==5):
+  result=str(x) + str(y)
+print(result)
