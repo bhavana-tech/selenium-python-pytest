@@ -11,3 +11,35 @@ def factorial(n):
 if __name__ == "__main__":
     num = int(input("Enter a number: "))
     print(f"Factorial of {num} is {factorial(num)}")
+
+Now create a PyTest file (test_factorial.py)
+
+import pytest
+from factorial import factorial
+
+def test_factorial():
+    assert factorial(0) == 1  # 0! = 1
+    assert factorial(1) == 1  # 1! = 1
+    assert factorial(5) == 120  # 5! = 120
+    assert factorial(7) == 5040  # 7! = 5040
+
+def test_negative_factorial():
+    with pytest.raises(ValueError):
+        factorial(-5)  # Should raise an error
+
+def test_large_factorial():
+    assert factorial(10) == 3628800  # 10! = 3,628,800
+
+Run in pytest
+
+pytest test_factorial.py
+
+If all tests pass, you'll see output like:
+
+============================= test session starts =============================
+collected 3 items                                                              
+
+test_factorial.py ...                                                   [100%]
+
+============================== 3 passed in 0.12s ==============================
+
