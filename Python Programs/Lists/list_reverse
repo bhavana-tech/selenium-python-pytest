@@ -1,0 +1,44 @@
+To print the list in reverse order ----Method 1:
+
+list1=[3,4,2,4,33,54]
+for i in range(len(list1)-1,-1,-1):
+    print(list1[i])
+
+output=
+54
+33
+4
+2
+4
+3
+-------------------------------------------------------------------------------
+To print the list in reverse order ----Method 2:
+
+list1=[3,4,2,4,33,54]
+for i in range(len(list1)-1,-1,-1):
+    print(list1[i], end="," if i!=0 else ".")
+
+output = 54,33,4,2,4,3.
+---------------------------------------------------------------------------------------
+
+To print the list in reverse order ----Method 3:
+list1=[3,4,2,4,33,54]
+list2=",".join(map(str, list1[::-1]))+"."
+print(list2)
+
+output = 54,33,4,2,4,3.
+-------------------------------------------------------------
+To print the list in reverse order ----Method 4
+
+hor=""
+list1=[3,4,2,4,33,54]
+for i in range(len(list1)-1,-1,-1):
+    hor+=str(list1[i]) + ("," if i!=0 else ".")
+    
+print(hor)
+
+output = 54,33,4,2,4,3.
+
+-----------------------------------------------------------------------------------------
+printing a list with square brackets
+
