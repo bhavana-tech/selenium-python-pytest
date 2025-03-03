@@ -1,16 +1,31 @@
 def factorial(n):
-    if n < 0:
-        raise ValueError("Factorial is not defined for negative numbers.")
-    if n == 0 or n == 1:
-        return 1
-    result = 1
-    for i in range(2, n + 1):
-        result *= i
-    return result
+    try:
+        if not isinstance(n, int):  # Check if input is an integer
+            raise TypeError("Input must be an integer.")
+        if n < 0:  # Factorial is not defined for negative numbers
+            raise ValueError("Factorial is not defined for negative numbers.")
+        if n == 0 or n == 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
+    except (TypeError, ValueError) as e:
+        return str(e)  # Return error message instead of breaking the program
 
 if __name__ == "__main__":
-    num = int(input("Enter a number: "))
-    print(f"Factorial of {num} is {factorial(num)}")
+    try:
+        num = int(input("Enter a number: "))
+        print(f"Factorial of {num} is {factorial(num)}")
+    except ValueError:
+        print("Invalid input! Please enter an integer.")
+
+
+
+
+
+
+
 
 Now create a PyTest file (test_factorial.py)
 
@@ -29,6 +44,8 @@ def test_negative_factorial():
 
 def test_large_factorial():
     assert factorial(10) == 3628800  # 10! = 3,628,800
+
+
 
 Run in pytest
 
