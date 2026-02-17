@@ -1,10 +1,11 @@
-print("Code for list is --Append, Extend, [Insert!Replacing], Remove, Delete")
+print("Code for list is --Append, Extend, [Insert and Replacing], Remove(only 1 item), Delete(multiple items)")
 
 list1=[1,2,3,4,5,6,7,8,'abc','def']
-print("Original list                                                  ",list1)
+print("Original list",list1)
 
-#This is appending ie adding as a single element at the end, ie if you pass a single list to append( the entire list will be added as a single element. (APPU)
-# ratehr than addign each individual element. 
+#This is appending ie adding as a single element at the end, ie if you pass a single list to append(
+# the entire list will be added as a single element. (APPU)
+# rather than addign each individual element.
 list1.append(['append1','append2'])
 print("AFTER APPENDING ie adding multiple elements as a single element",list1)
 
@@ -18,22 +19,22 @@ list1[0]='Replacing_at_0th_position'
 print("AFTER REPLACING at 0th position ie list1[0]=                   ",list1)
 print("Replacing last position is list1[-1]                           ",list1)
 
-WE CAN INSERT TINTO LIST
+WE CAN INSERT INTO LIST
 list1=["India","uk","usa"]
 list1.insert(1,"germany")
 print(list1)
 
 output is ['India', 'germany', 'uk', 'usa']
 
-=== Code Execution Successful ===
+
 
 #Replacing multiple elements
-list2=[1,2,3,4,5,6,7,8,9]
+list2=[1,2,3,4,5,6,7,8,9]git add
 list2[0:5]=[11,12,13,14,15]
 print(list2)
 
-#Removing specific element
-list1.remove('Replacing_at_0th_position')
+#Removing by value and not by index
+list1.remove('India')
 print("After removing specific element                                ",list1)
 
 #Deleting at specific position
