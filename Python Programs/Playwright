@@ -1,0 +1,521 @@
+I have around 10–12 years of experience in QA Automation. I have extensively worked with Python, Pytest, Playwright, and PyCharm IDE for developing scalable automation frameworks using Page Object Model. I have experience in UI and API automation, parallel execution, reporting, logging, and handling multiple browsers. I have integrated frameworks with CI/CD pipelines using Jenkins, GitHub Actions, and Azure DevOps. I regularly use GitHub and GitHub Copilot to improve productivity and maintain code quality. My focus has always been on building maintainable frameworks, reducing regression execution time, and improving overall release quality. :D
+—----------------------------
+What challenges u faced while converting selenium to PW scripts?
+Updating locators , framework restructuring,  replacing explicit waits, parallel execution issues, but at the end, the scripts were stable, faster execution.
+
+****** FIGURE*********
+step 1. Requirement
+step 2. Test Design
+Sterp 3: POM development
+Step 4: Execurtion
+Step 5: Reporting
+Step 6: Defect Logging
+Step 7: Retesting
+Step 8: Regression
+Step 9: Ci/CD Integration
+
+
+
+—----------------------------------------------------------------------------------------
+What was your test plan in pytest-playwright QA team. 
+
+SHORT ANSWER:
+"As a QA Lead, we followed Shift-Left testing where QA participated from requirement grooming itself. Test scenarios and data were prepared early in Octane. Our framework was built using Playwright-Pytest with POM architecture, fixtures and Allure reporting. Developers and QA pushed code to GitHub, and PR creation automatically triggered Jenkins/Azure DevOps pipelines. Smoke suites executed in parallel in headless mode as quality gates. If tests passed, deployment progressed to staging and eventually Azure environments. If failures occurred, builds were blocked and reports with screenshots and traces were shared automatically. Apart from UI testing, we also performed API and database validations to ensure end-to-end data integrity. We tracked coverage, defect leakage, flaky tests and release quality metrics to ensure stable releases."
+This level of answer is what interviewers expect from a 14-year Playwright-Pytest QA Lead/Senior SDET
+
+
+We as a team lead followed shift-left testing meaning all the validations would happen before cementing the development work. During grooming sessions, Acceptance criteria would be defined by BA and then QA and dev team would review user stories. We map our test scenarios and define testcases and testdata in octane early on.
+
+Our automation framework is built on pytest-playwright. We heavily use POM. ALl the locators and actions are separated into individual page class.  The test scripts only call methods from these page classes.
+
+When dev team finishes their code in their IDE and pushes a new branch to remote repo(like github) and opens a PR,  
+
+As a QA, we write tests in pytest-playwright in pycharm IDE. Even pycharm IDE is connected to the same repository, As a qa, we write code and test it locally and push those automation scripts to same repo as developers do. 
+
+We categorized our suites into:
+Smoke Suite
+Login
+Navigation
+Critical workflows
+Regression Suite
+End-to-end business flows
+Positive and negative scenarios
+Sanity Suite
+Post-deployment validations
+Cross-browser Testing
+Chromium
+Firefox
+WebKit
+Parallel Execution
+
+ pytest -m smoke -n auto
+The test data was maintained through JSON files, YAMl files, excel files.
+
+API + UI Validation
+Use Playwright APIRequestContext or Requests library.
+Fetch customer information from API.
+response = requests.get("/customer/123")
+Validate that the UI displays the same values returned by API.
+assert ui_name == api_name
+assert ui_email == api_email
+
+
+When ever a PR is raised by dev team, Github triggers Jenkins/ Azure Devops pipeline automatically. the CI server automatically spins up a clean , isolated virtual environment, (container) and it will pull all the latest codes that dev has merged and also the automation scripts from the repo.It will install dependencies like python (pip install - 	r requirements.txt to install pytest-playwright) and download all headless browsers like chromium, 
+The CI server executes command like pytest - m smoke -numprocesses auto. Smoke suite is triggered in headless mode inside the container. 
+
+Pytest -m smoke -n auto –alluredir=reports
+
+Now comes the 2 scenarios -pass and fail.
+
+Scenario A: All test pass/Build pass
+The CI system marks the PR check as PASS. The repository allows the branch to be merged to the main development branch (main or master) 
+
+The pipeline automatically builds the software and deploys it to pre-prod or staging.
+ As a final step, we run a set of automated, low impact product sanity suite. If sanity test passes, the pipeline triggers the deployment to azure cloud environment. Release approval is provided. 
+
+This deployment script interact with azure cloud to update the live servers with new code..
+
+ 
+Scenario 2: If test fails
+Even if a single test fails,. The CICD acts as a quality gate. If there is any test failure, the build is blocked from proceeding to the next stage. The whole deployment process is stopped. !!! 
+
+Pytest returns non-zero exit code (Exit Code 1) to the CI server. The CI server marks the specific step as Failed.
+WHen this happens, the merge button is greyed out and a red warning appears, The repository settings prevent the PR from being merged. PW natively captures screenshots, these SS are loaded to CICD artifact storage and reported via tools like allure.
+
+At last , an automated notification like email is sent to the team with a link to the test failed report. 
+—-------------------------------------------------------------------------------------------------------------
+
+How have you used GitHub copilot?
+
+Yeah ..GHCP improved productivity by 
+
+Generating page methods
+Eg u type a comment like //generate method to login. 	
+
+Writing locators,
+
+Creating utility functions,
+Common repetitive functions like reading a csv file, generating random test data or clearing databases .copilot converts this prompts to python code.
+
+
+Generating assertions
+
+Writing API validation code. 
+—---------------------------------------------------------------------------------------------------------
+The exact YAML configuration file that connects PyCharm/Git to a CI system like GitHub Actions?
+How we configurationally pass different Environment URLs (Dev vs Staging vs Prod) into the Pytest command?
+An example of how Playwright Traces are downloaded from a failed CI run?
+
+
+
+
+
+
+ 
+
+We also use pytest-xdist for parallel execution, 
+ We then start building modular tests using pytest-playwright using POM framework. These run locally, then merged to CI pipelines. Run automatically upon deployments,  
+—----------------------------------------------------------------------------------
+What are the main features of playwright?
+Built in parallel execution using workers property. 
+Headless mode
+Auto waiting mechanism for elements–(Auto-waiting means Playwright automatically waits for elements to be ready (such as visible or interactable) before interacting with them, reducing the need for explicit waits in test scripts. )
+Capturing screenshots and videos
+Better handling of multiple tabs and frames
+Handling shadow DOMS
+Faster execution.
+
+Because of these features, our team migrated from selenium-python to playwright-python with pytest.
+—--------------------------------------------------------------------------------------
+What is headless mode ? 
+ ANS: 
+
+Headless mode is a browser execution mode where Playwright runs browser automation without displaying the browser UI. The browser performs all actions in the background, making test execution faster and suitable for CI/CD pipelines and automated test runs. 
+
+
+When playwright runs browser=playwright.chromium.launch(headless=false) 
+Browser will launch , button will be clicked, text being entered and pages navigating ..
+
+But when this runs:
+browser=playwright.chromium.launch(headless=True) 
+There is no browser launched, everything happens internally and works in background. No browser is visible. 
+
+Headed mode→ 10 mins
+Headless mode→ 7 mins
+
+Playwright is usually used in CICD pipelines, Jenkins, Azure Devops due to its headless mode.
+
+BUT we should sometimes Headless=False during finding locators, debugging a failed test, 
+—-------------------------------------------------------------------------------------------
+How does playwright handles multiple tabs?
+
+
+ANS: Using page.context.expect_page() 
+
+expect_page() waits for a new tab to open and captures it safely without synchronization issues. If we dont use expect_page(), playwright might try to access the tab before opening itself and may fail.
+
+
+
+
+
+A Page represents a browser tab or window in Playwright. Every tab opened in the browser is treated as a separate Page object. 
+
+page.goto(”www.playwright.com”)
+
+Playwright treats each tab as a separate object inside a single context. 
+Unlike selenium where it uses, “driver.switch_to.window()” , playwright simply stores each tab in a separate object variable and interact with them simultaneously.
+—----------------------------------------------------
+What is browser context?
+Browser context is an isolated browser session that can contain multiple tabs (pages)
+
+context=browser.new_context()
+page=context.new_page()
+
+
+
+—---------------------------------------------------------------------------------------------------
+How do you capture a newly opened tab?
+
+
+
+—--------------------------
+
+How do you get all open tabs?
+pages=page.context.pages
+To count all tabs —---  count=len(page.context.pages)
+To switch to a child tab—--- 
+
+With page.context.expect_page() as new_page:
+ page.click(“ID”)
+child_page=new_page.value
+child_page.bring_to_front()
+
+To store parent page as reference—--parent_page=page
+After closing the child, how to return to parent—--parent_page.bring_to_front()
+To verify the title of a child tab—-
+
+With page.context.expect_page() as new_page:
+ page.click(“ID”)
+child_page=new_page.value
+Assert child_page.title()=”expected_title”
+
+
+To verify the URL of child page–
+
+
+With page.context.expect_page() as new_page:
+ page.click(“ID”)
+child_page=new_page.value
+Assert “www.epicentre.com” in child_page.url()
+
+l
+To wait until child page loads
+
+With page.context.expect_page() as new_page:
+ page.click(“ID”)
+child_page=new_page.value
+child_page.wait_for_load_state()
+
+
+—--------------------------------------------------------------------------------------
+How do you handle multiple tabs opened simultaneously?
+
+
+
+—---------------
+How to identify a specific tab?
+
+
+—-------------------------
+How do you locate a child tab
+child_page.locator(“#ID).click()
+child_page.locator(“ID”).fill(“zkzsze8”)
+
+—-----------------------------
+
+
+	—----------------------------------------------------
+How do you handle pop up windows?
+
+
+	
+
+
+In playwright, how do you handle multiple tabs?
+ANS: In playwright i use page.context.expect_pages() to capture page object. After performing actions in child tab, again i switch to parent tab using parent_page.bring_to_front(). To identify multiple tabs, i use context.pages
+—--------------------------------------------------------------------------------------------------------------
+EXPLAIN PARALLEL EXECUTION IN PLAYWRIGHT *******************************
+
+Playwright has built in parallel execution. No additional library or plugins needed. 
+By default, playwright runs its tests in parallel across multiple worker processes. Each worker runs its tests independently in its own browser instance.
+
+Each worker has its own browser context meaning there is no sharing of cookies, local storage, Authentication state , browser cache, session storage This is called ISOLATED CONTEXTS. There is no interference between parallel test executions. 
+
+PW runs test files in parallel by default workers. However, if test files are there inside a single file..then these test files are run sequentially unless parallel execution is explicitly enabled by setting fullyparallel:true in playwright.config.ts 
+
+**https://www.google.com/search?q=9.+Does+Playwright+Run+Tests+in+Parallel+by+Default%3F+Answer+Yes.+Playwright+runs+test+files+in+parallel+by+default+using+multiple+workers.+However%2C+tests+inside+a+single+file+execute+sequentially+unless+parallel+execution+is+explicitly+enabled.+--how+to+enable%3F&sca_esv=d27764c230e87959&sxsrf=ANbL-n6VMHo-xgfDvVyAgGhoV9QF_awIgQ%3A1781716337978&udm=50&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpmAsnXCN5UBx17opt8eaTXyCfNeKGeJOJfUwi1MTUzwST1daiRLNBoQ0B6uczm6CPpE9MgkRBvAPuob4mewNkDkyJPOM4cUXCgTF3s6r8ePzSE49wWrN49hZO6o_W8OU5vZLEjpGBg_Hqzsox3WGwOApedjqloS2Uk0tumYhxMQS6X5e7CmdvlbFfLbas18Oj8ZlWFg&aep=1&ntc=1&sa=X&ved=2ahUKEwjflKnL4o6VAxXMgK8BHdCoKWAQ2J8OegQIExAD&biw=1920&bih=945&dpr=1&mstk=AUtExfB1hxiY6_ROEOhkH9kA66HwYsSL2Rxdz0w3JKuCIiDt1URexDM3vwm15FhVT2-aJrbq5hH9GEsfCQc0nTGS-MKkj4hkqB6tzIgaqZqJ-2O5JNM7i28FCCuSXnc9EXxD4m-o3VZuDRVtDKe8s7mQ5_eRkGtb4QS34or_DsWzP6uZFQvsQABNNuHX8w-TwlbNe3ElHC6wy4P1C_VkIHhLEHvqwbGCAmacv9wbRADg6TIeBkQD4RFajkL6fZVHlggA_jAPSWpPb06H3uKAu18NCSHnAm8ZnLeCnveaG2nAEI2pIFfr6DKH4qPm43GRCwQV80A9DItyVTiYQg&csuir=1&mtid=ddUyaq_rNI_bseMPs-GasA8
+
+—----------------
+Are tests inside files are run Parallel by default?
+
+No, all test files inside same file are run sequentially , they can be made run parallely by configuring test.describe.parallel()
+—-----------------------
+How test isolation is achieved in PW?
+ANS: By using browser context.
+—--------------------------------------------------------
+
+—-----------------------------------
+We configure parallelism in playwright.config.ts with the workers property.
+
+By default, PW determines the number of  workers based on CPU’s machine’s CPU cores. For CI, we generally configure workers explicitly.
+
+
+
+
+We can enable test level parallelism using fullyParallel: True  
+
+
+
+
+test.describe.parallel()---> To set  parallelise within the same file, set test.describe.parallel on that describe block. 
+
+
+
+Playwright supports cross-browser parallel execution using Project config
+
+Cross browser parallel:
+-> Use project config
+-> Run same suits in chromium, firefox, → all in parallel.
+Tests within the same file runs sequentially by default. 
+
+
+
+
+The key thing about playwright parallel execution is test isolation. Each worker gets its own browser context. Browser contexts are completely isolated. Cookies, session storage, local storage, all separate. This means u do not get interference between parallel tests. This is why PW is reliable default.  	 
+
+Browser → actual browser
+BrowserContext → independent session inside browser
+
+
+
+Tests that share same state like sharing to the database, or file CAN CONFLICT IN PARALLEL EXTN. and tests that depend on each other SHOULD NOT RUN IN PARALLEL. 
+By default, playwright runs its tests in parallel across multiple worker processes. Each worker runs its tests independently in its own browser instance.
+
+Each worker has its own browser context meaning there is no sharing of cookies, local storage, state or cache. This is called ISOLATED CONTEXTS. There is no interference between parallel test executions. So all cookies are isolated, all local storage is isolated.
+But in selenium, to make this parallelism, we need pytest-xdist. But in PW, there is builtin workers, built-in isolation, built-in browser context. There is no need of external libraries like pytest -xdist
+
+
+—------------------------------------------------------------
+
+One main hindrance in PW: 
+
+Suppose if test1 deletes some record in database and other test2 searches for that record, then conflict occurs and test fails.
+
+And test1 writes report.txt and also test2 writes report.txt. Data is over written. 
+                                                       
+So best practise is 👍All test should create its own data, clean its own data, Not dependent on other tests, Run independently.       
+—-------------------------
+Where is workers configuration done?
+ANS: playwright.config.ts file – This file contains all framework level configurations such as workers, retires, projects, reporters, browser settings and timeout. 
+—-------------------------------------------
+What is fullyparallel?
+ANS fullyParallel: true enables test-level parallel execution. Now test inside same file can run parallely.
+—--------
+What is test.describe.parallel?
+It i used to allow parallel execution within same described block. 
+--------------------------
+
+
+—------------------------------------------------------------
+Can u explain me about your automation framework the pytest framework that you were working on??
+
+
+
+CORE ARCHITECTURE
+/tests folder contains actual test scenarios like test_login. It interacts with the /pages and tell what to do. 
+
+/pages folder contains the ACTIONS. login_pages.py This will contain a function like
+ def login(username, password) . It uses the addresses from the locators folder.
+
+/locators - The address book. It contains all locators like xpath, css path to find buttons, link etc
+
+CONFIGURATION:
+
+/pytest.ini (CODE:AANI-Anubhava paapu) - It is like a rule book. A central global configuration file like what command line arguments to use, test execution paths, custom markers, eliminating the need to type long, repetitive command line arguments while everytime running the test suite. It is placed in root.dir
+
+/conftest.py -> [code: conFtest-Fixture] It stores all pytest fixtures, hooks, common setup and teardown logic, browser initialization. 
+Pytest reads pytest.ini and sets up the browser using conftest.py . This fiel is shared across all test files. 
+
+/requirements.txt - contains all python external libraries required like 
+playwright 
+Pytest
+Pytest-playwright
+
+Then install requirements.txt
+Pip install -r requirements.txt
+Pip install playwright
+
+
+  
+/config > Holds environment details like base URLs, passwords
+
+The test runs, pulling data from config file, and instructing page to do action. 
+The page finds the elements using locators, 
+After test execution, log is written and screenshots is saved. 
+Ultimately HTMl report is generated. 	
+
+ 
+/utils - > It is like tool box. It is not tied to a specific web page.Contains reusable helper code to read excel files, connecting to database, 
+/reports - > Automatically generates HTML report after a test 
+/logs > tracks every step the automation took 
+—----------------------------------------------------------------------------------------------------------------
+
+—------------------------------------------------------------------
+Explain pytest.fixtures used in Playwright/
+ANS: They are used in setup and teardown test conditions just like in a restaurant , how a table gets cleaned before eating and after eating.. This helps in pytest to actual focus on test function or test steps. 
+
+When pytest.fixtures is combined with playwright python , fixtures allow you to inject pre-configured resources like fresh browser page, or a logged-in-session directly to the testcase. 
+
+When we use pytest-playwright, it automatically provides built-in fixtures. 
+
+These built in fixtures are passed as ARGUMENTS to test function. It is like providing a football stadium with pitch, chairs so that the match can start immediately. 
+
+Some built in fixtures are page, browser, context. [CODE: BCP]
+
+Browser (Grand parent)---> Context(parent)--> Page(grandchild)
+browser: The Entire FIFA Organization / Infrastructure. It is heavy, expensive to spin up, and manages everything globally. launches the browser instance like chromium, chrome
+context: An Isolated Locker Room. It is entirely separated from other locker rooms. What happens in Team A's locker room (cookies, storage, logins) cannot be seen by Team B.
+page: A Player on the Pitch. This is the individual tab actually performing the actions.
+When to use each fixture (What to tell the interviewer)
+Use browser when: You need complete manual control over session creation. This is rare and mostly used for advanced multi-browser testing or modifying deep browser-level flags.
+Use context when: You want to test features like opening a new tab (context.new_page()), checking if a pop-up window opens correctly, or granting specific geolocation permissions (e.g., simulating a fan opening the FIFA app while physically inside Mexico, Canada, or the USA).
+Use page when: You are doing standard end-to-end testing (95% of test cases). It automatically creates a browser and a context behind the scenes for you, saving boilerplate code.
+
+
+pass browser because I need to generate multiple independent browser contexts. If I used context or page, all my actions would share the same session cookies, making it impossible to simulate different fans logging into different accounts." 
+
+
+
+
+Custom fixtures: We can create our own custom fixtures and bundle repetitive actions like logging to application using @pytest.fixture decorator. A custom fixtures uses “yield” keyword.
+
+All the codes before yield will run before the test set up. All the codes written after yield will run after test finishes. 
+
+—---------------------------
+Explain built in fixtures, custom fixtures using a realistic fifa example in pytest-playwright
+
+
+—-----------------------------------
+Explain pytest-playwright fixtures scopes:
+You can control how the fixtures works by controlling its scope. function (Default): Runs before and after every single test function. Perfect for ensuring full test isolation.
+class: Runs once per test class.
+module: Runs once per Python file (.py file).
+session: Runs only once for the entire test automation run. Best for heavy tasks like launching the main browser application or connecting to database
+
+—---------------------------------
+Difference between fixture and setup method:
+
+
+Fixtures
+Set up
+Modular, reusable component that encapsulates both setup and teardown logic
+Set up method is a very rigid class level function taht runs before every test in class
+Fixtures are present in conftest.py that can be shared across all test files 
+
+
+Tests can directly request fixtures and retrieve yielded data
+
+
+
+
+—------------------------------------------------------------------------------------------
+Why querySelector() is not used in pytest-playwright?
+
+Because it finds elements without waiting. We have to write manual lines like “wait_for_selector()” which clutters the code lines. I often use “page.locator()” 
+
+page.locator(“Id=” ”).click()
+page.get_by_text(“)
+page.get_by_role(‘“)
+page.get_by_placeholder()
+expect(locator).to_be_visible()
+expect(page.get_by_text(“welcome”)).to_be_visible()
+
+—-------------------------------------------------------------------------
+How screenshot is captured in pytest-playwright method?
+Using screenshot method() . PW can automatically take screenshots upon test failure or manually capture them at specific steps. 
+
+
+PW automatically saves in png format in a default folder “test-results” 
+
+If we want to capture at specific steps, use page.screenshot(path==”homepage.png”,full_page==True)
+
+If we want to capture permanently for all test runs, configure in pytest.ini file.
+
+
+—------------------------------------------------------------------------------------------------------------------
+How parallelism in PW helps in CICD pipeline 
+—--------------------------------------------------------------------—-----------------------------
+How is your Jenkins experience, azure devops experience ,git hub actions experience in pytest-playwright automation?
+
+Integrating pytest-playwright with Jenkins allows QA teams to build a continuous testing pipeline. Jenkins allows to trigger test execution like Jenkins is the factory manager that automatically triggers those tests whenever code changes. 
+
+automatically via code commit, running browsers in headless mode, publishing HTMl using allure.
+
+Pytest-playwright is a python library, Jenkins is a CICD server, It is a web based tool that sits on server and handles repetitive tasks automatically. Instead of you manually opening terminal and typing pytest everytime someones updates the website, we can do this - the moment the developer pushes the code , Jenkins automatically downloads that code, and triggers that pytest for you. 
+
+Assume there are 3 phases:
+
+Phase 1: (Development) We run these tests in our local and ensure the code is working fine.
+Phase 2: (Automation) -You upload the test scripts and tell jenkins to run them.
+Phase 3: (Continuous Integration) Tomorrow someone updates the background colour.Jenkins automatically identifies the update, automatically triggers the pytest-playwright tests in background. 	
+
+Advantage of jenkins:
+You never have to manually run the tests when there is an update. 
+Also if the new code is breaking the old feature, jenkins and pytest-playwright will immediately identify.
+Imagine your team has 500 Playwright test cases for an e-commerce website.
+Every day developers push new code to GitHub.
+Instead of manually opening PyCharm and running tests, Jenkins does everything automatically.
+
+Jenkins does everything: :D 
+1. Jenkins -Gets latest code from GitHub
+2. Jenkins Build Docker container – Why docker ? because dev A’s chrome version is 138 and dev B chrome version is 135. Test passes on A but fails on B. Docker creates same environment everywhere. A container contains python, pytest, playwright, chrome, dependencies etc. 
+Jenkins always run the tests inside container to avoid compatibility issues - 
+	
+3. Install dependencies
+4. Run Playwright tests
+5. Generate Allure report
+6. Send Slack notification 
+The Consolidated Master-Level Answer
+"Over my career, my relationship with Jenkins and Pytest-Playwright has evolved from execution to strategy, meaning I seamlessly operate across all three layers depending on the project's maturity and immediate needs.
+On any given day, I scale my approach based on the challenge at hand:
+The Tactical Execution: I write the declarative Jenkins pipeline or jenkins scripts that automatically triggers when dev pushes code to Github. The pipeline builds the docker container , containerize the Pytest-Playwright execution using Docker to avoid browser dependency issues, this helps in continuous and configure parallel execution via pytest-xdist. I ensure we get clean Allure reports and in allure reports we have passed-978, failed=22 and skipped=0 along with screenshots, error message, execution time with allure report link. and instant Slack alerts on failure.
+
+The Architecture & Optimization: For large scale automation suites, I shift to infrastructure optimization. I configure Jenkins matrix builds or Kubernetes agents to distribute Playwright tests across multiple dynamic pods. To speed up the pipeline start time,  I implement smart caching for playwright dependencies, and browser binaries to avoid repeated downloads, and for secure information like application passwords, API tokens and database credentials -these are stored in HashiCorp Vault. And this vault is injected into pipeline during runtime. 
+Jenkins matrix build means - instead of giving 1000 tests to run on machine 1. 
+Machine 1→ 250 tests , Machine 2→ 250 tests, Machine 3→ 250 tests and Machine 4→ 250 tests
+Kubernetes multiple dynamic pods means - see traditionally dedicated jenkins server used to tests which was expensive, limited resources, can become overload. .  Kubernetes is like uber, if you want to ride, take a uber, After ride, uber disappears! Similarly if test is needed, pod is created and after test is done, pod is deleted.
+Smart caching means every pipeline run downloads python packages, playwright browsers, dependencies etc eg pip install pytest, pip install playwright, playwright install chromium, THIS WASTES TIME. so we use smart caching means   
+HashiCorp vault: Example a test requires username=admin123” and password, API keys. . It is very bad practise to write like this password=”admin123” due to security issue. We can store secrets in vault. 
+
+
+The Enterprise Strategy: At the highest level, I treat automation as a business driver. I build global Jenkins Shared Libraries so multiple QA teams can reuse standard testing patterns. I establish strict quality gates that block bad code from hitting production, and I aggregate Jenkins data into dashboards to track flaky test metrics, pipeline ROI, and overall system reliability.
+Ultimately, whether a project requires me to jump into the trenches to debug a Docker network issue, architect a distributed test grid, or align our QA metrics with executive business goals, I have mastered the entire pipeline lifecycle from code push to production gate."
+
+Here is a simplified version of that text:
+On any given day, I adjust my work based on what is needed. I focus on three main areas:
+Technical Work I write the code that runs the automated tests. I use "containers" (Docker) to make sure the tests run the same way on every computer, and I set things up so many tests can run at the same time to save time. I also make sure the team gets clear reports and instant alerts if something breaks.
+Systems and Speed When we have a lot of tests, I make sure the system can handle the load. I set up "cloud" systems (Kubernetes) to spread the work across many machines. I also find ways to make the tests run faster by saving data for later and keeping our passwords and sensitive information safe.
+Big Picture Strategy I create tools and rules that the whole company can use so every team doesn't have to start from scratch. I set up "quality gates" to stop bad code from ever reaching the customers. I also create dashboards for managers to show them how reliable our systems are and if our tools are worth the money.
+Summary Whether I need to fix a small technical bug, design a massive testing system, or explain our progress to bosses, I can handle the entire process from the moment a developer finishes their code to the moment it goes live.
+
+—------------------------------------------------------------------------------------------------------------------------
+
+How is your azure devops experience in pytest-playwright?
+
+
+—--------------------------------------------------------------------------------------------------
+Explain the components of pytest wrt pytest-playwright?
+—---------------------------------------------------------------------------------------------------
+Explain pytest markers wrt pytest-playwright
+
+Ans: @pytest.mark is used for test categorization. To group certain test suites, skip tests, 
