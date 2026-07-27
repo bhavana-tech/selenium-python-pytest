@@ -8,16 +8,16 @@ print("Original list",list1)
 # rather than addign each individual element.
 list1.append(['append1','append2'])
 print("AFTER APPENDING ie adding multiple elements as a single element",list1)
-
+----------------------------------------------------------------------------------------------------------
 #This is extending ie adding as individual elements at the end
 list1.extend([11,12])
 list1.extend('aeiou')
 print("AFTER EXTENDING ie adding as individual elements at the end    ",list1)
-
+-----------------------------------------------------------------------------------------------------
 #This is inserting NO..NO..REPLACING
 list1[0]='Replacing_at_0th_position'
-print("AFTER REPLACING at 0th position ie list1[0]=                   ",list1)
-print("Replacing last position is list1[-1]                           ",list1)
+print("AFTER REPLACING at 0th position ie list1[0]=",list1)
+print("Replacing last position is list1[-1]",list1)
 
 WE CAN INSERT INTO LIST
 list1=["India","uk","usa"]
