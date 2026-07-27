@@ -11,7 +11,7 @@ print(item)
 
 print("Question 2 How can u store webdriver options in dictionary")
 dict={'headless':True,'disble-gpu':True}
-item=dict['apple']
+item=dict['headless']
 print(item)
 
 print("Question 3: When do you use dictonary  and list in selenium tests ")
