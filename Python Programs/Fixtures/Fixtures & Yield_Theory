@@ -1,6 +1,8 @@
 What are fixtures?
 
-Fixtures are reusuable functions that prepares the environmants needed for a testcase(s) and optionally cleans up after execution is done
+Fixtures are reusuable functions that prepares the environments needed for a testcase(s) and optionally cleans up after execution is done.
+
+It is liek a monolithic function 
 
 eg;opening a browser , connecting to db. So basically it is a setup and clean up mechanism 
 
@@ -8,13 +10,7 @@ Imagine a cricket match.
 
 Before the players start playing:
 
-The pitch is prepared.
-The stumps are fixed.
-The ball is brought.
-The scoreboard is reset.
-The umpires are ready.
-
-The players don't prepare these things themselves—they simply come and play.
+The pitch is prepared.The stumps are fixed.The ball is brought.The scoreboard is reset.The umpires are ready.The players don't prepare these things themselves—they simply come and play.
 
 A fixture is like the ground staff. It prepares everything before the match and cleans up afterward.
 
@@ -50,4 +46,76 @@ def login_page(page):
 def create_user(login_page):
   login_page.click("text="create_user")
 
-Everything before yield is the set up and everything after the yield is teasr down. 
+Everything before yield is the set up and everything after the yield is tear down. 
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+What is setUp() and tearDown() and wWhy would you prefer it over `setUp`/`tearDown` from unittest related to pytest-playwright? **************
+
+setUp() and tearDown() are builtin python methods built in unittestframework. While setUp() and tearDown() and fixtures handles setup and cleanup,
+fixtures is more ideal way becasue they are more modular and scalable..
+
+eg 
+class test_login(unittest.testcase):
+  defsetUp(self):
+   """
+
+Now another class uses the same setUp()
+
+class test_user_creation(unittest,testcase):
+ def setUp(self):
+ """
+
+So every class uses the same setUp() !! It is like every cricekt team bringing theor own umpires. Fixtures are like using one umpire for every match..
+
+Unlike setup() and teardown(), fixtures can be  shared across multiple test files. These test files have different scope, accept different parameters..
+this makes teh framework easier in maintaining and scaling especially in playwright projects with hundrends of testcases.   
+
+Eg my project had 600 testcases suppose, 20 modules , 4 browsers and 20 page objects  and if every tests needs to open browser, open page, login etc..ti
+it would take hell lot of time! 
+----------------------------------------------------------------------------------------------------------------------------------------------
+Main advantage of fixtures over setup() and teardown() is ---> 
+
+Advantage 1: In the below example; page is automatically created by the python itself. There is no need of self !!
+
+@pytest.fixture
+def login_page(page):
+  page.goto("www.google.com")                                     
+  page.fill("username","admin")
+  page.fill("password","23434")
+  page.click("button",type='submit'")
+  yield page
+
+def create_user(login_page):
+  login_page.click("text="create_user")
+
+It is like when Coach says "Need bat?" , Ground staff automatically gives one.
+
+Need helmet?Automatically given. 
+
+You don't carry everything yourself.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Advantage 2: Scope of fixtures. Teh availble scopes are modules, sessions, package, class and functions
+-------------------------------------------------------------------------------------------------------------------------
+Advantage 3: Fixtures can depend on other fixtures and are easy to share across conftest.py files and fixtures are playwright builtin
+eg
+
+@pytest.fixture
+def login_page(page):
+  """
+
+def create_user(login_page):
+"""
+
+def create_profile(create_user):
+  """
+
+This is IMPOSSIBLE in setUp() 
+---------------------------------------------------------------------------------------------------------------
+Advantage 4: Playwright already provides fixtures!!!
+--------------------------------------------------------------------------------------------------------------
+Advantage 5: Parameterization !! Fixtures can be sent with different data
+
+eg pytest.fixtures(['chromium','firefox'])
+same tests will be run 2 times !! :D  THIS IS IMPOSSIBLE IN seUp()
