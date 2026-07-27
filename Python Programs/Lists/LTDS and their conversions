@@ -5,7 +5,7 @@ print("To get output as 0:apple, 1:banana, 2:cat")
 x={i: list1[i] for i in range(len(list1))}
 print(x)
 
-
+-----------------------------------------------------------------------------------------------------------
 
 Print("-----Pairing Consecutive Elements--------")
 list1=['Name','Bhavana','age',33,'Gender','Female']
@@ -33,14 +33,18 @@ print("--- 1. CONVERSIONS FROM LIST ---")
 list_to_tuple = tuple(base_list)
 print(f"List to Tuple: {list_to_tuple}")
 
+
+
 # List to Set (removes duplicates)
 list_to_set = set(base_list)
 print(f"List to Set: {list_to_set}")
 
-# List to Dictionary (requires a structured list of pairs/tuples)
-kv_list = [('name', 'Alice'), ('age', 25)]
-list_to_dict = dict(kv_list)
-print(f"List of Tuples to Dict: {list_to_dict}")
+
+
+# Tuple to Set (removes duplicates)
+tuple_to_set = set(base_tuple)
+print(f"Tuple to Set: {tuple_to_set}")
+
 
 
 print("\n--- 2. CONVERSIONS FROM TUPLE ---")
@@ -48,17 +52,7 @@ print("\n--- 2. CONVERSIONS FROM TUPLE ---")
 tuple_to_list = list(base_tuple)
 print(f"Tuple to List: {tuple_to_list}")
 
-# Tuple to Set (removes duplicates)
-tuple_to_set = set(base_tuple)
-print(f"Tuple to Set: {tuple_to_set}")
 
-# Tuple to Dictionary (requires a tuple of paired elements)
-kv_tuple = (('brand', 'Ford'), ('model', 'Mustang'))
-tuple_to_dict = dict(kv_tuple)
-print(f"Tuple of Tuples to Dict: {tuple_to_dict}")
-
-
-print("\n--- 3. CONVERSIONS FROM SET ---")
 # Set to List
 set_to_list = list(base_set)
 print(f"Set to List: {set_to_list}")
@@ -67,17 +61,51 @@ print(f"Set to List: {set_to_list}")
 set_to_tuple = tuple(base_set)
 print(f"Set to Tuple: {set_to_tuple}")
 
+----------------------------------------------------------------------------------------------------------------------
+
+CAN WE CONVERT LIST TO DICTONARY DIRECTLY? 
+Ans: Yes, you can convert a list to a dictionary directly, but only if the structure of your list inherently supports key-value pairing.
+
+# List to Dictionary (requires a structured list of pairs/tuples)
+kv_list = [('name', 'Alice'), ('age', 25)]
+list_to_dict = dict(kv_list)
+print(f"List of Tuples to Dict: {list_to_dict}")
+
+OR
+
+kv_list = [('name', 'Alice'), ('age', 25)]
+list_to_dict={kv_list[i] for i in range(len(kv_list))}
+print(f"List of Tuples to Dict: {list_to_dict}")
+
+OR
+
+kv_list = [1,232,35546,65756,3211,3423,423]
+list_to_dict={kv_list[i] for i in range(len(kv_list))}
+print(f"List of Tuples to Dict:", list_to_dict)
+---------------------------------------------------------------------------------------------------------------------------------
+    
+# Tuple to Dictionary (requires a tuple of paired elements)
+kv_tuple = (('brand', 'Ford'), ('model', 'Mustang'))
+tuple_to_dict = dict(kv_tuple)
+print(f"Tuple of Tuples to Dict: {tuple_to_dict}")
+
+-----------------------------------------------------------------------------------------------------------------------
+print("\n--- 3. CONVERSIONS FROM SET ---")
+
+
 # Set to Dictionary (requires generating keys or values)
 # Example: creating a dictionary where set items are keys and values are squared
 set_to_dict = {item: item**2 for item in base_set}
 print(f"Set to Dict (Comprehension): {set_to_dict}")
+-------------------------------------------------------------------------------------------------------------
 
-
-print("\n--- 4. CONVERSIONS FROM DICTIONARY ---")
+print("\n--- 4. CONVERSIONS FROM DICTIONARY to LIST(only keys ---")
 # Dictionary to List (Keys only)
 dict_to_list_keys = list(base_dict)
 print(f"Dict to List (Keys): {dict_to_list_keys}")
 
+
+print("\n--- 4. CONVERSIONS FROM DICTIONARY to LIST (only values---")
 # Dictionary to List (Values only)
 dict_to_list_vals = list(base_dict.values())
 print(f"Dict to List (Values): {dict_to_list_vals}")
@@ -93,3 +121,11 @@ print(f"Dict to Tuple (Keys): {dict_to_tuple}")
 # Dictionary to Set (Keys only)
 dict_to_set = set(base_dict)
 print(f"Dict to Set (Keys): {dict_to_set}")
+
+------------------------------------------------------------------------------------------------
+Can we convert from set to dictonary?
+Yes, we need to convert unique elements in sets to its corresponding values since dictonary has key-value pair. Use dict.fromkeys()
+
+my_set={132,456,,89,'apple'}
+set_to_dict=dict.fromkeys(my_set,0)
+print(set_to_dict)
