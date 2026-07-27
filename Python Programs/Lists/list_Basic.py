@@ -26,17 +26,16 @@ print(list1)
 
 output is ['India', 'germany', 'uk', 'usa']
 
-
-
 #Replacing multiple elements
-list2=[1,2,3,4,5,6,7,8,9]git add
+list2=[1,2,3,4,5,6,7,8,9]
 list2[0:5]=[11,12,13,14,15]
 print(list2)
-
+-----------------------------------------------------------------------------------------------------------
 #Removing by value and not by index
+list1= ['India', 'germany', 'uk', 'usa']
 list1.remove('India')
-print("After removing specific element                                ",list1)
-
+print("After removing specific element ",list1)
+--------------------------------------------------------------------------------------------------------------
 #Deleting at specific position
 del list1[0]
 print("After deleting at 0th position list1[0]                        ",list1)
@@ -49,8 +48,7 @@ del list3[-1]
 print("Deleting last item")
 print("Deleting first 4 elements                                        ",list3)
 
-
--------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 list1=[[1,2],[3,4],[5,6]]
 res=[x for temp in list1 for x in temp]
 print(list(res))
