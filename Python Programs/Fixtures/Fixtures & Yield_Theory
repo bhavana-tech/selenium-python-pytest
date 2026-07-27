@@ -1,0 +1,53 @@
+What are fixtures?
+
+Fixtures are reusuable functions that prepares the environmants needed for a testcase(s) and optionally cleans up after execution is done
+
+eg;opening a browser , connecting to db. So basically it is a setup and clean up mechanism 
+
+Imagine a cricket match.
+
+Before the players start playing:
+
+The pitch is prepared.
+The stumps are fixed.
+The ball is brought.
+The scoreboard is reset.
+The umpires are ready.
+
+The players don't prepare these things themselves—they simply come and play.
+
+A fixture is like the ground staff. It prepares everything before the match and cleans up afterward.
+
+Similarly, in Playwright:
+
+Launch the browser
+Open a page
+Log in (if required)
+
+The test only focuses on verifying functionality.
+
+------------------------------------------------------------------------------------------------------------------------
+Why do we use fixtures?
+
+Fixtures provide several benefits:
+
+♻️ Code reuse – Write setup once, use it in many tests.
+🧹 Cleaner tests – Test functions contain only test logic.
+🔧 Easy maintenance – Update setup in one place.
+⚡ Consistent environment – Every test starts from a known state.
+------------------------------------------------------------------------------------------------------------------------------
+
+Explain fixtures and yield with example?
+
+@pytest.fixture
+def login_page(page):
+  page.goto("www.google.com")
+  page.fill("username","admin")
+  page.fill("password","23434")
+  page.click("button",type='submit'")
+  yield page
+
+def create_user(login_page):
+  login_page.click("text="create_user")
+
+Everything before yield is the set up and everything after the yield is teasr down. 
