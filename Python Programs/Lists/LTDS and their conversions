@@ -1,0 +1,95 @@
+#To convert list to dictionory 
+
+list1=['apple','bananna','cat','dog']
+print("To get output as 0:apple, 1:banana, 2:cat")
+x={i: list1[i] for i in range(len(list1))}
+print(x)
+
+
+
+Print("-----Pairing Consecutive Elements--------")
+list1=['Name','Bhavana','age',33,'Gender','Female']
+print("Convert the above to {'Name': 'Bhavana', 'age': 33, 'Gender': 'Female'} ")
+to_dict={list1[i]:list1[i+1] for i in range (0,len(list1),2)} 
+print(to_dict)
+
+
+print("---------Convert a list to set-----------")
+my_list = ['apple', 'banana', 'cherry', 'apple']
+my_set = set(my_list)
+print(my_set)
+
+----------------------------------------------------------------------------------------------------------------
+# ==========================================
+# INITIAL DATA STRUCTURES
+# ==========================================
+base_list = [1, 2, 2, 3]
+base_tuple = (10, 20, 20, 30)
+base_set = {100, 200, 300}
+base_dict = {'a': 1, 'b': 2, 'c': 3}
+
+print("--- 1. CONVERSIONS FROM LIST ---")
+# List to Tuple
+list_to_tuple = tuple(base_list)
+print(f"List to Tuple: {list_to_tuple}")
+
+# List to Set (removes duplicates)
+list_to_set = set(base_list)
+print(f"List to Set: {list_to_set}")
+
+# List to Dictionary (requires a structured list of pairs/tuples)
+kv_list = [('name', 'Alice'), ('age', 25)]
+list_to_dict = dict(kv_list)
+print(f"List of Tuples to Dict: {list_to_dict}")
+
+
+print("\n--- 2. CONVERSIONS FROM TUPLE ---")
+# Tuple to List
+tuple_to_list = list(base_tuple)
+print(f"Tuple to List: {tuple_to_list}")
+
+# Tuple to Set (removes duplicates)
+tuple_to_set = set(base_tuple)
+print(f"Tuple to Set: {tuple_to_set}")
+
+# Tuple to Dictionary (requires a tuple of paired elements)
+kv_tuple = (('brand', 'Ford'), ('model', 'Mustang'))
+tuple_to_dict = dict(kv_tuple)
+print(f"Tuple of Tuples to Dict: {tuple_to_dict}")
+
+
+print("\n--- 3. CONVERSIONS FROM SET ---")
+# Set to List
+set_to_list = list(base_set)
+print(f"Set to List: {set_to_list}")
+
+# Set to Tuple
+set_to_tuple = tuple(base_set)
+print(f"Set to Tuple: {set_to_tuple}")
+
+# Set to Dictionary (requires generating keys or values)
+# Example: creating a dictionary where set items are keys and values are squared
+set_to_dict = {item: item**2 for item in base_set}
+print(f"Set to Dict (Comprehension): {set_to_dict}")
+
+
+print("\n--- 4. CONVERSIONS FROM DICTIONARY ---")
+# Dictionary to List (Keys only)
+dict_to_list_keys = list(base_dict)
+print(f"Dict to List (Keys): {dict_to_list_keys}")
+
+# Dictionary to List (Values only)
+dict_to_list_vals = list(base_dict.values())
+print(f"Dict to List (Values): {dict_to_list_vals}")
+
+# Dictionary to List (Key-Value Tuples)
+dict_to_list_items = list(base_dict.items())
+print(f"Dict to List (Items): {dict_to_list_items}")
+
+# Dictionary to Tuple (Keys only)
+dict_to_tuple = tuple(base_dict)
+print(f"Dict to Tuple (Keys): {dict_to_tuple}")
+
+# Dictionary to Set (Keys only)
+dict_to_set = set(base_dict)
+print(f"Dict to Set (Keys): {dict_to_set}")
